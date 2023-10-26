@@ -1,0 +1,37 @@
+class Solution {
+    public void solve(int idx, String k, String temp, Map<Integer,String> map, List<String> res) {
+        if(idx==k.length()){
+            res.add(temp);
+        }else{
+
+        String str = map.get(k.charAt(idx) - '0');
+        for(int i = 0;i<str.length();i++){
+            temp = temp.concat(str.charAt(i)+"");
+            solve(idx+1,k,temp,map,res);
+            temp=temp.substring(0,temp.length()-1);
+        }
+    }
+}
+
+    public List<String> letterCombinations(String digits) {
+
+        List<String> res = new ArrayList<>();
+        if (digits != null && !digits.isEmpty()) {
+        String temp = new String();
+
+        Map<Integer,String> map = new HashMap<>();
+        map.put(2,"abc");
+        map.put(3,"def");
+        map.put(4,"ghi");
+        map.put(5,"jkl");
+        map.put(6,"mno");
+        map.put(7,"pqrs");
+        map.put(8,"tuv");
+        map.put(9,"wxyz");
+
+
+        solve(0, digits, temp, map, res);
+        }
+        return res;
+    }
+ }

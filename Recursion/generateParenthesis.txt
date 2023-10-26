@@ -1,0 +1,19 @@
+class Solution {
+    public void solve(String result,int open,int close, List<String> list,int n){
+        if(result.length()==(2*n)){
+            list.add(result);
+            return;
+        }
+        if(open<n){
+            solve(result+"(",open+1,close,list,n);
+        }
+        if(close<open){
+            solve(result+")",open,close+1,list,n);
+        }
+    }
+    public List<String> generateParenthesis(int n) {
+       List<String> list=new ArrayList<>();
+        solve("(",1,0,list,n);
+        return list;
+    }
+}

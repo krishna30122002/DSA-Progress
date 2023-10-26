@@ -1,0 +1,30 @@
+class Solution {
+    public void solve(int idx, int k, int sumTotal, int n, List<List<Integer>> list, List<Integer> res) {
+        if (k < 0) {
+            return;
+        }
+
+        if (sumTotal == n) {
+            if (k == 0) {
+                list.add(new ArrayList<>(res));
+            }
+            return;
+        }
+
+        if (idx > 9) {
+            return;
+        }
+        res.add(idx);
+        solve(idx + 1, k - 1, sumTotal + idx, n, list, res);
+        res.remove(res.size() - 1);
+        solve(idx + 1, k, sumTotal, n, list, res);
+    }
+
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
+        solve(1, k, 0, n, list, res);
+        return list;
+    }
+}
+

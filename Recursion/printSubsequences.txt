@@ -1,0 +1,24 @@
+import java.util.ArrayList;
+import java.util.List;
+public class Solution {
+    public static List<String> generateSubsequences(String s) {
+        // Write your code here
+        if(s.length()==0){
+            List<String> l1=new ArrayList<>();
+            l1.add("");
+            return l1;
+        }
+        char ch=s.charAt(0);
+        String s2=s.substring(1);
+        List<String> l2=generateSubsequences(s2);
+
+        List<String> l3=new ArrayList<>();
+        for(String str1:l2){
+            l3.add(""+str1);
+        }
+        for(String str2:l2){
+            l3.add(ch+str2);
+        }
+        return l3;
+    }
+}

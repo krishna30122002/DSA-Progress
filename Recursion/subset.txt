@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.io.*; 
+public class Solution {
+    public static void solve(int idx,int sum, int[] arr, int n , ArrayList<Integer> res){
+        if(idx==n){
+            res.add(sum);
+            return;
+        }
+        solve(idx+1, sum+arr[idx], arr, n, res);
+        solve(idx+1, sum, arr, n, res);
+
+    }
+    public static ArrayList<Integer> subsetSum(int num[]) {
+        // Write your code here..
+        int n = num.length;
+        ArrayList<Integer> res = new ArrayList<>();
+        solve(0, 0, num, n, res);
+        Collections.sort(res);
+        return res;
+    }
+
+}

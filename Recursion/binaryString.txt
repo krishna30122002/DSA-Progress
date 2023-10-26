@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Solution {
+    public static void solve(int n,String str,List<String> list){
+        if(n==0){
+            list.add(str);
+            return;
+        }
+        if(str.isEmpty() || str.charAt(str.length()-1)=='0'){
+            solve(n-1, str+"0", list);
+            solve(n-1, str+"1", list);
+        }else{
+        solve(n-1, str+"0", list);
+        }
+    }
+    public static List<String> generateString(int n) {
+        List<String> list = new ArrayList<>();
+        solve(n,"",list);
+        return list;
+    }
+}
