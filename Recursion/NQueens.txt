@@ -1,0 +1,68 @@
+public class Solution {
+    public boolean safeQueen(int row, int col, int n, List<String> res){
+        int tempRow = row;
+        int tempCol = col;
+
+        while(row >= 0 && col >= 0){
+            if(res.get(row).charAt(col) == 'Q'){
+                return false;
+            }
+            row--;
+            col--;
+        }
+
+        row = tempRow;
+        col = tempCol;
+
+        while(col >= 0){
+            if(res.get(row).charAt(col) == 'Q'){
+                return false;
+            }
+            col--;
+        }
+
+        row = tempRow;
+        col = tempCol;
+
+        while(row < n && col >= 0){
+            if(res.get(row).charAt(col) == 'Q'){
+                return false;
+            }
+            row++;
+            col--;
+        }
+
+        return true;
+    }
+    
+    public void solve(int col, int n, List<String> res, List<List<String>> list){
+        if(col == n){
+            list.add(new ArrayList<>(res));
+            return;
+        }
+        for(int row = 0; row < n; row++){ 
+            if(safeQueen(row, col, n, res)){
+                char[] rowChars = res.get(row).toCharArray();
+                rowChars[col] = 'Q';
+                res.set(row, new String(rowChars));
+                solve(col + 1, n, res, list);
+                rowChars[col] = '.';
+                res.set(row, new String(rowChars));
+            }
+        }
+    }
+
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> list = new ArrayList<>();
+        List<String> res = new ArrayList<>(n);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append('.');
+        }
+        for (int i = 0; i < n; i++) {
+            res.add(sb.toString());
+        }
+        solve(0, n, res, list);
+        return list;
+    }
+}
