@@ -1,0 +1,35 @@
+import java.util.Arrays;
+
+class Solution {
+    public int threeSumClosest(int[] arr, int K) {
+        int n = arr.length;
+        Arrays.sort(arr);
+        int sumClosest= Integer.MAX_VALUE;
+        int diffClosest = Integer.MAX_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            int j = i + 1;
+            int k = n - 1;
+            
+            while (j < k) {
+                int sum = arr[i] + arr[j] + arr[k];
+                int diff = Math.abs(sum - K);
+
+                if (diff < diffClosest) {
+                    diffClosest = diff;
+                    sumClosest = sum;
+                }
+
+                if (sum < K) {
+                    j++;
+                } else if (sum > K) {
+                    k--;
+                } else {
+                    return sum;
+                }
+            }
+        }
+
+        return closestSum;
+    }
+}
