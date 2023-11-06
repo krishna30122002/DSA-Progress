@@ -7,7 +7,7 @@ public class bunkClass {
         while(b!=0){
             double res1 = arr[i]/l;
             b-=res1;
-            double res2 = arr
+//            double res2 = arr
         }
     }
     public static void main(String[] args) {
