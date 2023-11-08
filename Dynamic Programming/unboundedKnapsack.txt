@@ -1,0 +1,27 @@
+import java.util.Arrays;
+
+public class Solution {
+    public static int solve(int idx, int w, int[] value, int[] weight, int[][] dp){
+        if(idx==0){
+            return (w/weight[0])*value[0];
+        }
+        if(dp[idx][w]!=-1){
+            return dp[idx][w];
+        }
+        int notTake = solve(idx-1,w,value,weight,dp);
+        int take = Integer.MIN_VALUE;
+        if(weight[idx]<=w){
+            take = value[idx] + solve(idx,w-weight[idx],value,weight,dp);
+        }
+        dp[idx][w] = Math.max(take, notTake);
+        return dp[idx][w];
+    }
+    public static int unboundedKnapsack(int n, int w, int[] profit, int[] weight) {
+        // Write your code here.
+        int[][] dp = new int[n][w+1];
+        for(int[] row:dp){
+            Arrays.fill(row, -1);
+        } 
+        return solve(n-1,w,profit,weight,dp);
+    }
+}
