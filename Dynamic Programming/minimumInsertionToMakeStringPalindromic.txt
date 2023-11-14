@@ -1,0 +1,68 @@
+public class Solution {
+    public static int solve(String s) {
+        char []str = s.toCharArray();
+        int n = s.length();
+        int [][] dp = new int[n + 1][n + 1];
+        for(int i = 0; i < n; i++)
+        {
+            for (int j = n - 1; j > -1; j--)
+            {
+                if (str[i] == str[j]) 
+                {
+                    dp[i + 1][n - j] = 1 + dp[i - 1 + 1][n - j - 1 ];
+                }
+                else{
+                    dp[i + 1][n - j] = 0 + Math.max(dp[i - 1 + 1][n - j ], dp[i + 1][n - j - 1]);
+                }
+            }
+        }
+        return dp[n][n];
+    }
+    public static int minInsertion(String str) {
+        // Write your code here.
+        int n = str.length();
+        return n - solve(str);
+    }
+}
+
+
+//Another Approach
+
+class Solution {
+    
+    public int solve(int idx1, int idx2, String text1, String text2, int[][] dp){
+        if(idx1<0 || idx2<0){
+            return 0;
+        }
+        if(dp[idx1][idx2]!=-1){
+            return dp[idx1][idx2];
+        }
+        if(text1.charAt(idx1)==text2.charAt(idx2)){
+            dp[idx1][idx2]=1+solve(idx1-1,idx2-1,text1,text2,dp);
+        }else{
+            dp[idx1][idx2]=0+Math.max(solve(idx1-1,idx2,text1,text2,dp),solve(idx1,idx2-1,text1,text2,dp));
+        }
+        return dp[idx1][idx2];
+    }
+
+    public int minInsertions(String s) {
+        String t = "";
+        char ch;
+
+        // Reversing a String
+        for (int i=0; i<s.length(); i++)
+        {
+           ch = s.charAt(i);
+           t = ch + t;
+        }
+
+        int n = s.length();
+
+        int[][] dp = new int[n][n+1];
+        for(int[] row:dp){
+            Arrays.fill(row, -1);
+        }
+        int x = solve(n-1, n-1, s, t, dp);
+        return (n-x);
+    }
+}
