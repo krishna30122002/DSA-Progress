@@ -1,0 +1,26 @@
+// Elements Appearing More Than 25% In Sorted Array
+
+class Solution {
+    public int findSpecialInteger(int[] arr) {
+        int n = arr.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i : arr) {
+            if (map.containsKey(i)) {
+                map.put(i, map.get(i) + 1);
+            }
+            else {
+                map.put(i, 1);
+            }
+        }
+        int maxi = Integer.MIN_VALUE;
+        int c = -1;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int num=entry.getValue();
+            if(num>maxi){
+                c=entry.getKey();
+                maxi=Math.max(maxi,entry.getValue());
+            }
+        }
+        return c;
+    }
+}

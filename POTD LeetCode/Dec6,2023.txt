@@ -1,0 +1,13 @@
+// Calculate Money in Leetcode Bank
+
+class Solution {
+    public int totalMoney(int n) {
+        int days = n / 7;
+        int rem = n % 7;
+        
+        int sum = ((days * (days - 1)) / 2) * 7;
+        sum += days * 28;
+        sum += ((rem * (rem + 1)) / 2) + (days * rem);
+        return sum;
+    }
+}

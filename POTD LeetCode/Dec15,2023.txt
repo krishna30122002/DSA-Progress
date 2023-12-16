@@ -1,0 +1,20 @@
+// Destination City
+
+class Solution {
+    public String destCity(List<List<String>> list) {
+        for (int i = 0; i<list.size(); i++) {
+            String str = list.get(i).get(1);
+            boolean flag = true;  
+            for (List<String> s : list) {
+                if (s.get(0).equals(str)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return str;
+            }
+        }
+        return "";
+    }
+}

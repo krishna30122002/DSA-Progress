@@ -1,0 +1,44 @@
+// Construct String from Binary Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    String str;
+    public void solve(TreeNode root){
+        if(root==null){
+            return;
+        }
+        str+=root.val;
+        if(root.left==null && root.right==null){
+            return;
+        }
+        str+="(";
+        solve(root.left);
+        str+=")";
+
+        if(root.right!=null){
+            str+="(";
+            solve(root.right);
+            str+=")";
+        }
+        return;
+    }
+    public String tree2str(TreeNode root) {
+        str="";
+        solve(root);
+        return str;
+    }
+}

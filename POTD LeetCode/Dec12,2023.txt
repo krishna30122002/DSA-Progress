@@ -1,0 +1,39 @@
+// Maximum Product of Two Elements in an Array
+
+class Solution {
+    public int maxProduct(int[] nums) {
+
+        //1st approach - Runtime: 9ms
+
+        // int maxi = Integer.MIN_VALUE;
+        // for(int i = 0; i<nums.length; i++){
+        //     for(int j = 0; j<nums.length; j++){
+        //         if(j!=i){
+        //             maxi=Math.max(maxi,((nums[i]-1)*(nums[j]-1)));
+        //         }
+        //     }
+        // }
+        // return maxi;
+
+        // 2nd approach - Runtime: 2ms
+
+        // Arrays.sort(nums);
+        // return (nums[nums.length-1]-1)*(nums[nums.length-2]-1);
+
+        //3rd approach - Runtime: 0ms
+
+        int maxi1 = 0;
+        int maxi2 = 0;
+
+        for (int i = 0; i<nums.length; i++) {
+            if (nums[i] > maxi1) {
+                maxi2 = maxi1;
+                maxi1 = nums[i];
+            } else if (nums[i] > maxi2) {
+                maxi2 = nums[i];
+            }
+        }
+
+        return (maxi1 - 1) * (maxi2 - 1);
+    }
+}

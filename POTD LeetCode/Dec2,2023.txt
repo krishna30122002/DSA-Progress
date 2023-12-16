@@ -1,0 +1,81 @@
+// Find words that can be formed by Characters
+
+// class Solution {
+//     public int countCharacters(String[] words, String chars) {
+//         Map<Character, Integer> map = new HashMap<>();
+ 
+//         char[] strArray = chars.toCharArray();
+//         for (char c : strArray) {
+//             if (map.containsKey(c)) {
+//                 map.put(c, map.get(c) + 1);
+//             }
+//             else {
+//                 map.put(c, 1);
+//             }
+//         }
+//         int cnt = 0;
+//         for(String word: words){
+//                 Map<Character, Integer> temp = new HashMap<>();
+//                 for(int j = 0; j<word.length(); j++){
+//                     char ch = word.charAt(j);
+//                     if (temp.containsKey(ch)) {
+//                         temp.put(ch, temp.get(ch) - 1);
+//                     } else {
+//                         temp.put(ch,1);
+//                     }
+//                 }
+//                 boolean flag = true;
+//                 for(Map.Entry<Character, Integer> entry: temp.entrySet()){
+//                     char ch = entry.getKey();
+//                     int  n = entry.getchue();
+//                     if(!map.containsKey(ch) || map.get(ch)<n){
+//                         flag = false;
+//                     }
+//                 }
+//                 if(flag) {
+//                 cnt += word.length();
+//             }
+//         }
+//         return cnt;
+//     }
+// }
+
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        int cnt = 0;
+        Map<Character, Integer> map = new HashMap<>();
+
+        for(int i = 0; i < chars.length(); i++){
+            char ch = chars.charAt(i);
+
+            if(map.containsKey(ch)) map.put(ch, map.get(ch)+1);
+            else map.put(ch, 1);
+        }
+        for(String word: words){
+            Map<Character, Integer> temp = new HashMap<>();
+
+            for(int i = 0; i< word.length(); i++){
+                char ch = word.charAt(i);
+
+                if(temp.containsKey(ch)){
+                    temp.put(ch, temp.get(ch)+1);
+                }
+                else{
+                    temp.put(ch, 1);
+                }
+            }
+            boolean flag = true;
+            for(Map.Entry<Character, Integer> entry: temp.entrySet()){
+                char ch = entry.getKey();
+                int  n = entry.getValue();
+                if(!map.containsKey(ch) || map.get(ch)<n){
+                    flag = false;
+                }
+            }
+            if(flag){
+                cnt += word.length();
+            } 
+        }
+        return cnt;
+    }
+}

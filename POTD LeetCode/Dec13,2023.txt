@@ -1,0 +1,36 @@
+// Special Positions in a Binary Matrix
+
+class Solution {
+    public int numSpecial(int[][] arr) {
+        int cnt = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int rowFlag = 0;
+            int flag2 = -1;
+
+            for (int j = 0; j < arr[0].length; j++) {
+                if (arr[i][j] == 1) {
+                    rowFlag++;
+                    flag2 = j;
+                    if (rowFlag > 1) {
+                        break;
+                    }
+                }
+            }
+
+            if (rowFlag == 1) {
+                int colFlag = 0;
+                for (int k = 0; k < arr.length; k++) {
+                    colFlag += arr[k][flag2];
+                    if (colFlag > 1) {
+                        break;
+                    }
+                }
+
+                if (colFlag == 1) {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+}
