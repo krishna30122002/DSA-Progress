@@ -1,0 +1,23 @@
+// Buy Two Chocolates
+
+class Solution {
+    public int buyChoco(int[] prices, int money) {
+        int n = prices.length;
+        int cnt = 0;
+        int x = money;
+        int sum = Integer.MAX_VALUE;
+        Arrays.sort(prices);
+        for(int i = 0; i < n-1; i++) {
+            for(int j = i+1; j < n; j++) {
+                if((prices[i] + prices[j]) <= money) {
+                    sum = Math.min(sum, prices[i] + prices[j]);
+                    cnt = 2;
+                }
+            }
+        }
+        if(cnt == 2) {
+            return x - sum;
+        }
+        return x;
+    }
+}

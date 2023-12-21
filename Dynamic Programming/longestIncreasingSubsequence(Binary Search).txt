@@ -1,0 +1,28 @@
+// Binary Search
+
+import java.util.*;
+public class Solution {
+	public static int longestIncreasingSubsequence(int arr[]) {
+		//Your code goes here
+		if(arr.length==1){
+			return 1;
+		}
+		List<Integer> list = new ArrayList<>();
+		list.add(arr[0]);
+		int len = 1;
+		for(int i = 1; i<arr.length; i++){
+			if(list.get(list.size()-1)<arr[i]){
+				list.add(arr[i]);
+				len++;
+			}else{
+//Collections.binarySearch(list,arr[i]); is used here
+				int lowerLimit = Collections.binarySearch(list, arr[i]);
+				if (lowerLimit < 0) {
+                    lowerLimit = -lowerLimit - 1;
+                }
+				list.set(lowerLimit, arr[i]);
+			}
+		}
+		return len;
+	}
+}
