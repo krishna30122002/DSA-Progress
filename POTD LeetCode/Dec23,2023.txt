@@ -1,0 +1,34 @@
+// Path Crossing
+
+class Solution {
+    public boolean isPathCrossing(String path) {
+        int n = path.length();
+        if (n == 1) {
+            return false;
+        }
+        HashSet<String> set = new HashSet<>();
+        int x = 0;
+        int y = 0;
+        set.add("0,0");
+        for (int i = 0; i < n; i++) {
+            char ch = path.charAt(i);
+            if (ch == 'N') {
+                y++;
+            } else if (ch == 'E') {
+                x++;
+            } else if (ch == 'S') {
+                y--;
+            } else if (ch == 'W') {
+                x--;
+            }
+            String position = x + "," + y;
+            if (set.contains(position)) {
+                return true;
+            } else {
+                set.add(position);
+            }
+        }
+
+        return false;
+    }
+}

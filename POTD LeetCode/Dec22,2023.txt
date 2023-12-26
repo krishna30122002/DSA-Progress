@@ -1,0 +1,62 @@
+// Maximum Score After Splitting a String
+
+class Solution {
+    public int maxScore(String s) {
+        int n = s.length();
+        int cnt1 = 0; 
+        int cnt2 = 0; 
+        int maxi = 0;
+        for (int i = 0; i<s.length(); i++) {
+            if (s.charAt(i) == '1') {
+                cnt1++;
+            }
+        }
+        for (int i = 0; i < n - 1; i++) {
+            if (s.charAt(i) == '0') {
+                cnt2++;
+            } else {
+                cnt1--;
+            }
+            maxi = Math.max(maxi, (cnt1+cnt2));
+        }
+        return maxi;
+    }
+}
+
+
+// O(n2)
+
+// class Solution{
+    // public int count0(String s){
+    //     int cnt = 0;
+    //     for(int i = 0; i<s.length(); i++){
+    //         char ch = s.charAt(i);
+    //         if(ch=='0'){
+    //             cnt++;
+    //         }
+    //     }
+    //     return cnt;
+    // }
+
+    // public int count1(String s){
+    //     int cnt = 0;
+    //     for(int i = 0; i<s.length(); i++){
+    //         char ch = s.charAt(i);
+    //         if(ch=='1'){
+    //             cnt++;
+    //         }
+    //     }
+    //     return cnt;
+    // }
+
+    // public int maxi(String s) {
+    //     int n = s.length();
+    //     int cnt = 0;
+    //     for(int i = 1; i<n; i++){
+    //         String str1 = s.substring(0,i);
+    //         String str2 = s.substring(i,n);
+    //         cnt = Math.maxi(cnt,(count0(str1)+count1(str2)));
+    //     }
+    //     return cnt;
+    // }
+// }

@@ -1,0 +1,47 @@
+// Minimum Changes To Make Alternating Binary String
+
+class Solution {
+    public int solve1(String s){
+        int cnt = 0;
+        for(int i = 0; i<s.length(); i++){
+            if(i%2==0){
+                if(s.charAt(i)=='0'){
+                    continue;
+                }else{
+                    cnt++;
+                }
+            }else{
+                if(s.charAt(i)=='1'){
+                    continue;
+                }else{
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+    public int solve2(String s){
+        int cnt = 0;
+        for(int i = 0; i<s.length(); i++){
+            if(i%2!=0){
+                if(s.charAt(i)=='0'){
+                    continue;
+                }else{
+                    cnt++;
+                }
+            }else{
+                if(s.charAt(i)=='1'){
+                    continue;
+                }else{
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+    public int minOperations(String s) {
+        int a = solve1(s);
+        int b = solve2(s);
+        return Math.min(a,b);
+    }
+}
