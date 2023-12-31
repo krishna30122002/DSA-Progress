@@ -1,0 +1,23 @@
+// Minimum Time To Make Rope Colourful
+
+class Solution {
+    public int minCost(String colors, int[] neededTime) {
+        int n = colors.length();
+        int prev = 0;
+        int cnt = 0;
+        char[] arr = colors.toCharArray();
+        for(int i = 1; i<n; i++){
+            if(arr[i]==arr[prev]){
+                if(neededTime[prev]<neededTime[i]){
+                    cnt+=neededTime[prev];
+                    prev=i;
+                }else{
+                    cnt+=neededTime[i];
+                }
+            }else{
+                prev=i;
+            }
+        }
+        return cnt;
+    }
+}
