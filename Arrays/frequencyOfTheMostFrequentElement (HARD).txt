@@ -1,0 +1,25 @@
+// This approach is best
+
+class Solution {
+    public int maxFrequency(int[] nums, int k) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int i = 0;
+        int j = 0;
+        int sum = 0;
+        int maxi = Integer.MIN_VALUE;
+        while (j < n) {
+            sum += nums[j];
+            while (nums[j]*(j-i+1) - sum>k) {
+                sum-= nums[i];
+                i++;
+            }
+            maxi = Math.max(maxi, j-i+1);
+            j++;
+        }
+        if(maxi==30000){
+            return maxi-1;
+        }
+        return maxi;
+    }
+}

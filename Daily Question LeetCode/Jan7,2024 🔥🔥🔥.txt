@@ -1,0 +1,58 @@
+// EXTREMELY LOGICAL
+
+// MERGING OF TWO CONCEPTS
+
+// BINARY SEARCH USED TO FIND THE NEXT ENDING INDEX
+
+class Solution {
+    int[] dp=new int[50001];
+    public int solve(List<List<Integer>> list, int[] start, int n, int idx){
+        if(idx==n){
+            return 0;
+        }
+        if(dp[idx]!=-1){
+            return dp[idx];
+        }
+        int curr=list.get(idx).get(1);
+        int nextIdx=binarySearch(start,n,curr);
+
+        int maxi=Math.max((solve(list,start,n,idx+1)),(solve(list,start,n,nextIdx)+list.get(idx).get(2)));
+        dp[idx]=maxi;
+        return dp[idx];
+    }
+
+    public int binarySearch(int[] start, int n, int endingIdx){
+        int low=0;
+        int high=n-1;
+        int nextIdx=n;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(start[mid]>=endingIdx){
+                nextIdx=mid;
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return nextIdx;
+    }
+
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        int n=startTime.length;
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.fill(dp,-1);
+
+        for(int i = 0; i<n; i++){
+            List<Integer> temp=new ArrayList<>();
+            temp.add(startTime[i]);
+            temp.add(endTime[i]);
+            temp.add(profit[i]);
+            list.add(temp);
+        }
+        list.sort(Comparator.comparingInt(a->a.get(0)));
+        for(int i = 0; i<n; i++){
+            startTime[i]=list.get(i).get(0);
+        }
+        return solve(list,startTime,n,0);
+    }
+}

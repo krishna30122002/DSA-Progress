@@ -1,0 +1,77 @@
+// Coding Ninja Solution
+//O(N2)
+
+import java.util.*;
+public class Solution {
+    public static boolean isParentSum(Node root) {
+        // Write your code here.
+        if (root == null) {
+            return false;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                Node node = q.poll();
+                int sum = 0;
+                if (node.left != null) {
+                    q.add(node.left);
+                    sum += node.left.data;
+                }
+                if (node.right != null) {
+                    q.add(node.right);
+                    sum += node.right.data;
+                }             
+                if (node.left == null && node.right == null) {
+                    continue;
+                }
+                if (sum != node.data) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
+
+//GFG Solution
+//O(N)
+
+class Solution {
+    public int checkTree(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        int childSum=0;
+        if(root.left!=null){
+            childSum+=root.left.val;
+        }
+        if(root.right!=null){
+            childSum+=root.right.val;
+        }
+        if(childSum>=root.val){
+            root.val=childSum;
+        }else{
+            if(root.left!=null){
+                root.left.val=root.val;
+            }else if(root.right!=null){
+                root.right.val=root.val;
+            }
+        }
+        checkTree(root.left);
+        checkTree(root.right);
+        int total=0;
+        if(root.left!=null){
+            total+=root.left.val;
+        }
+        if(root.right!=null){
+            total+=root.right.val;
+        }
+        if(root.left!=null || root.right!=null){
+            root.val=total;
+        }
+        return total;
+    }
+}
+

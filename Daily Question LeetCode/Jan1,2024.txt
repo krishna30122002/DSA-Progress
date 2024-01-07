@@ -1,0 +1,22 @@
+// Assign Cookies
+
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int cnt1 = 0;
+        int cnt2 = 0;
+        int n = g.length;
+        int m = s.length;
+        
+        while(cnt1<n && cnt2<m){
+            if(g[cnt1]<=s[cnt2]){
+                cnt1++;
+                cnt2++;
+            }else{
+                cnt2++;
+            }
+        }
+        return cnt1;
+    }
+}

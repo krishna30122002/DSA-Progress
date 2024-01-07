@@ -1,0 +1,20 @@
+// By using an array of integers (int[] maxSum), you can pass the reference to the array into the solve method. Since arrays are objects in Java, the reference to the array is passed by value, but the contents of the array (in this case, maxSum[0]) can be modified within the method, and those modifications will be visible outside the method.
+
+
+class Solution {
+    private int solve(TreeNode root, int[] maxSum){
+        if(root==null){
+            return 0;
+        }
+        int leftSum=Math.max(0,solve(root.left,maxSum));
+        int rightSum=Math.max(0,solve(root.right,maxSum));
+        maxSum[0]=Math.max(maxSum[0],(leftSum+rightSum+root.val));
+        return (root.val+Math.max(leftSum,rightSum));
+    }
+    public int maxPathSum(TreeNode root) {
+        int[] maxSum=new int[1];
+        maxSum[0]=Integer.MIN_VALUE;
+        solve(root,maxSum);
+        return maxSum[0];
+    }
+}

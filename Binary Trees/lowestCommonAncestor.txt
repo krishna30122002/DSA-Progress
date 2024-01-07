@@ -1,0 +1,22 @@
+// IMPORTANT QUESTION CREATE CONFUSION BETWEEN LEFT AND RIGHT
+
+class Solution {
+    public TreeNode solve(TreeNode root, TreeNode node1, TreeNode node2){
+        if (root==null || root==node1 || root==node2){
+            return root;
+        }
+        TreeNode left=solve(root.left,node1,node2);
+        TreeNode right=solve(root.right,node1,node2);
+        if(left==null){
+            return right;
+        }else if(right==null){
+                return left;
+        }else{
+            return root;
+        }
+    }
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode node=solve(root,p,q);
+        return node;
+    }
+}
