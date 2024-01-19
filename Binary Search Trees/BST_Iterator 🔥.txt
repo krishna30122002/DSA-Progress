@@ -1,0 +1,15 @@
+class Solution {
+    public TreeNode solve(int[] arr, int maxi, int[] temp){
+        if(temp[0]==arr.length || arr[temp[0]]>maxi){
+            return null;
+        }
+        TreeNode root = new TreeNode(arr[temp[0]]);
+        temp[0]++;
+        root.left=solve(arr,root.val,temp);
+        root.right=solve(arr,maxi,temp);
+        return root;
+    }
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return solve(preorder,Integer.MAX_VALUE,new int[]{0});
+    }
+}

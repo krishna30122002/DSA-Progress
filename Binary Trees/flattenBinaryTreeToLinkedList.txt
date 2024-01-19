@@ -1,0 +1,46 @@
+// 1st Method - Code Studio
+
+public class Solution 
+{
+	static TreeNode<Integer> prev = null;
+    public static TreeNode<Integer> flattenBinaryTree(TreeNode<Integer> root)
+    {
+        // Write your code here.
+		if(root==null){
+			return null;
+		}
+		flattenBinaryTree(root.right);
+		flattenBinaryTree(root.left);
+		root.right=prev;
+		root.left=null;
+		prev=root;
+		return root;
+    }
+}
+
+
+// 2nd Method - LeetCode
+
+class Solution {
+    public void flatten(TreeNode root) {
+        if(root==null){
+            return;
+        }
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        while(!st.isEmpty()){
+            TreeNode curr=st.peek();
+            st.pop();
+            if(curr.right!=null){
+                st.push(curr.right);
+            }
+            if(curr.left!=null){
+                st.push(curr.left);
+            }
+            if(!st.isEmpty()){
+                curr.right=st.peek();
+            }
+            curr.left=null;
+        }
+    }
+}

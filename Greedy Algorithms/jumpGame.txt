@@ -1,0 +1,30 @@
+// class Solution {
+//     public boolean canJump(int[] arr) {
+//         int n=arr.length;
+//         int mark=0;
+//         for(int i = 0; i<n; i++){
+//             mark=Math.max(i+arr[i],mark);
+//             if(mark>=n-1){
+//                 return true;
+//             }else if(mark==i){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+// }
+
+class Solution {
+    public boolean canJump(int[] arr) {
+        int mark = arr.length-1;
+        for(int i=mark;i>=0;i--){
+            if((i+arr[i])>=mark){
+                mark=i;
+            }
+        }
+        if(mark>0){
+            return false;
+        }
+        return true;
+    }
+}

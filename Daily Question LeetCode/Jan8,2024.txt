@@ -1,0 +1,36 @@
+// Range Sum of BST
+
+class Solution {
+    // public void solve(TreeNode root, int low, int high, int[] arr){
+    //     if(root==null){
+    //         return;
+    //     }
+    //     if(root.val>=low && root.val<=high){
+    //         arr[0]+=root.val;
+    //     }
+    //     solve(root.left,low,high,arr);
+    //     solve(root.right,low,high,arr);
+    // }
+    // public int rangeSumBST(TreeNode root, int low, int high) {
+    //     int[] arr = new int[1];
+    //     arr[0]=0;
+    //     solve(root,low,high,arr);
+    //     return arr[0];
+    public int rangeSumBST(TreeNode root, int low, int high) {
+
+        if(root==null) {
+            return 0;
+        }
+        int sum=0;
+        if(root.val>=low && root.val<=high) {
+            sum+=root.val;
+        }
+        if(root.val>low){
+            sum+=rangeSumBST(root.left, low, high);
+        }
+        if(root.val<high){
+            sum+=rangeSumBST(root.right, low, high);
+        }
+        return sum;
+    }
+}

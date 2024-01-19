@@ -1,0 +1,66 @@
+// Amount of Time For Binary Tree to Be Infected
+
+class Solution {
+    public static int solve(Map<TreeNode,TreeNode> map, TreeNode target){
+		HashSet<TreeNode> visited=new HashSet<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        visited.add(target);
+        queue.add(target);
+        int maxi=0;
+        while(!queue.isEmpty()){
+            int size=queue.size();
+			int flag=0;
+            for(int i = 0; i<size; i++){
+                TreeNode node = queue.poll();
+                if(node.left!=null && !visited.contains(node.left)){
+					flag=1;
+                    queue.add(node.left);
+                    visited.add(node.left);
+                }
+                if(node.right!=null && !visited.contains(node.right)){
+					flag=1;
+                    queue.add(node.right);
+                    visited.add(node.right);
+                }
+                if(!visited.contains(map.get(node)) && (map.get(node)!=null)){
+                    flag=1;
+                    queue.add(map.get(node));
+                    visited.add(map.get(node));
+                }
+            }
+            if(flag==1){
+                maxi++;;
+            }
+        }
+		return maxi;
+	}
+
+    public static TreeNode parents(TreeNode root, Map<TreeNode,TreeNode> map, int start){
+        Queue<TreeNode> queue=new LinkedList<>();
+        map.put(root,null);
+        queue.add(root);
+		TreeNode temp=root;
+        while(!queue.isEmpty()){
+            TreeNode node = queue.poll();
+			if(node.val==start){
+				temp=node;
+			}
+            if(node.left!=null){
+                map.put(node.left,node);
+                queue.add(node.left);
+            }
+            if(node.right!=null){
+                map.put(node.right,node);
+                queue.add(node.right);
+            }
+        }
+		return temp;
+    }
+
+    public int amountOfTime(TreeNode root, int start) {
+        Map<TreeNode,TreeNode> map = new HashMap<>();
+        TreeNode node=parents(root,map,start);
+		int maxi=solve(map,node);
+		return maxi;
+    }
+}

@@ -1,0 +1,68 @@
+import java.util.*;
+public class Solution
+{
+	public static int solve(Map<BinaryTreeNode<Integer>,BinaryTreeNode<Integer>> map, BinaryTreeNode<Integer> target){
+		HashSet<BinaryTreeNode<Integer>> visited=new HashSet<>();
+        Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
+        visited.add(target);
+        queue.add(target);
+        int maxi=0;
+        while(!queue.isEmpty()){
+            int size=queue.size();
+			int flag=0;
+            for(int i = 0; i<size; i++){
+                BinaryTreeNode<Integer> node = queue.poll();
+                if(node.left!=null && !visited.contains(node.left)){
+					flag=1;
+                    queue.add(node.left);
+                    visited.add(node.left);
+                }
+                if(node.right!=null && !visited.contains(node.right)){
+					flag=1;
+                    queue.add(node.right);
+                    visited.add(node.right);
+                }
+                if(!visited.contains(map.get(node))){
+                    if(map.get(node)!=null){
+						flag=1;
+                        queue.add(map.get(node));
+                        visited.add(map.get(node));
+                    }
+                }
+            }
+            if(flag==1){
+                maxi++;;
+            }
+        }
+		return maxi;
+	}
+	public static BinaryTreeNode<Integer> parents(BinaryTreeNode<Integer> root, Map<BinaryTreeNode<Integer>,BinaryTreeNode<Integer>> map, int start){
+        Queue<BinaryTreeNode<Integer>> queue=new LinkedList<>();
+        map.put(root,null);
+        queue.add(root);
+		BinaryTreeNode<Integer> temp = new BinaryTreeNode<>(-1);
+        while(!queue.isEmpty()){
+            BinaryTreeNode<Integer> node = queue.poll();
+			if(node.data==start){
+				temp=node;
+			}
+            if(node.left!=null){
+                map.put(node.left,node);
+                queue.add(node.left);
+            }
+            if(node.right!=null){
+                map.put(node.right,node);
+                queue.add(node.right);
+            }
+        }
+		return temp;
+    }
+public static int timeToBurnTree(BinaryTreeNode<Integer> root, int start)
+    {
+        // Write your code here.
+		Map<BinaryTreeNode<Integer>,BinaryTreeNode<Integer>> map = new HashMap<>();
+        BinaryTreeNode<Integer> node=parents(root,map,start);
+		int maxi=solve(map,node);
+		return maxi;
+    }
+}

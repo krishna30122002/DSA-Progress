@@ -1,0 +1,22 @@
+// Determine if String Halves Are Alike
+
+class Solution {
+    public int solve(String str){
+        int cnt=0;
+        String vowels="aeiouAEIOU";
+        for(int i = 0; i<str.length(); i++){
+            if(vowels.contains(str.charAt(i)+"")){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+    public boolean halvesAreAlike(String s) {
+        int v1=solve(s.substring(0,s.length()/2));
+        int v2=solve(s.substring(s.length()/2,s.length()));
+        if(v1==v2){
+            return true;
+        }
+        return false;
+    }
+}

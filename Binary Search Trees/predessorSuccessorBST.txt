@@ -1,0 +1,35 @@
+import java.util.List;
+import java.util.ArrayList;
+public class Solution {
+    public static void successor(TreeNode root, List<Integer> list, int key){
+        if(root==null){
+            return;
+        }else if(root.data>key){
+            list.set(1,root.data);
+            successor(root.left,list,key);
+        }else if(root.data<=key){
+            successor(root.right, list, key);
+        }
+        return;
+    }
+    public static void predecessor(TreeNode root, List<Integer> list, int key){
+        if(root==null){
+            return;
+        }else if(root.data>=key){
+            predecessor(root.left,list,key);
+        }else if(root.data<key){
+            list.set(0,root.data);
+            predecessor(root.right, list, key);
+        }
+        return;
+    }
+    public static List<Integer> predecessorSuccessor(TreeNode root, int key) {
+        // Write your code here.
+        List<Integer> list = new ArrayList<>();
+        list.add(-1);
+        list.add(-1);
+        predecessor(root,list,key);
+        successor(root,list,key);
+        return list;
+    }
+}

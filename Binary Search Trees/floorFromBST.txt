@@ -1,0 +1,17 @@
+public class solution {
+	public static int Floor(BinaryTreeNode<Integer> root, int x) { 
+		int floor=-1;
+        while(root!=null){
+            if(root.data==x){
+                return floor=root.data;
+            }
+            if(root.data<x){
+                floor=root.data;
+                root=root.right;
+            }else{
+                root=root.left;
+            }
+        }
+        return floor;
+	}
+}

@@ -1,0 +1,17 @@
+public class Solution
+{
+    public static int solve(Node root){
+        if(root.left==null){
+            return root.data;
+        }
+        int mini= solve(root.left);
+        return mini;
+    }
+    public static int minValue(Node root) {
+        // Write your code here.
+        if(root==null){
+            return -1;
+        }
+        return solve(root);
+    }
+}
