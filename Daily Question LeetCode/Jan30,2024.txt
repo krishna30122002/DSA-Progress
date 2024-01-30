@@ -1,0 +1,33 @@
+// Evaluate Reverse Polish Notation
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<String> st=new Stack<>();
+        for(int i=0; i<tokens.length; i++){
+            if(tokens[i].equals("+")){
+                int x=Integer.valueOf(st.pop());
+                int y=Integer.valueOf(st.pop());
+                x+=y;
+                st.push(String.valueOf(x));
+            }else if(tokens[i].equals("-")){
+                int x=Integer.valueOf(st.pop());
+                int y=Integer.valueOf(st.pop());
+                y-=x;
+                st.push(String.valueOf(y));
+            }else if(tokens[i].equals("*")){
+                int x=Integer.valueOf(st.pop());
+                int y=Integer.valueOf(st.pop());
+                x*=y;
+                st.push(String.valueOf(x));
+            }else if(tokens[i].equals("/")){
+                int x=Integer.valueOf(st.pop());
+                int y=Integer.valueOf(st.pop());
+                y/=x;
+                st.push(String.valueOf(y));
+            }else{
+                st.push(tokens[i]);
+            }
+        }
+        return Integer.valueOf(st.pop());
+    }
+}

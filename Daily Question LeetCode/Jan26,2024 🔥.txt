@@ -1,0 +1,31 @@
+// Out of Boundary Paths
+
+class Solution {
+    static int mod= 1000000007;
+    public long solve(int r, int c, int mr, int mc, int minM, int maxM, long[][][] dp){
+        if(r>=mr || c>=mc || r<0 || c<0){
+            return 1;
+        }
+        if(minM>=maxM){
+            return 0;
+        }
+        if(dp[r][c][minM]!=-1){
+            return dp[r][c][minM];
+        }
+        long left=solve(r,c-1,mr,mc,minM+1,maxM,dp);
+        long right=solve(r,c+1,mr,mc,minM+1,maxM,dp);
+        long up=solve(r-1,c,mr,mc,minM+1,maxM,dp);
+        long down=solve(r+1,c,mr,mc,minM+1,maxM,dp);
+        dp[r][c][minM]=(left%mod + right%mod + up%mod + down%mod)%mod;
+        return dp[r][c][minM];
+    }
+    public int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        long[][][] dp= new long[51][51][51];
+        for(int i=0; i<51; i++){
+            for(int j=0; j<51; j++){
+                Arrays.fill(dp[i][j],-1);
+            }
+        }
+        return (int)solve(startRow,startColumn,m,n,0,maxMove,dp);
+    }
+}

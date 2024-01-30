@@ -1,0 +1,67 @@
+// Maximum Length of a Concatenated String with Unique Characters
+
+// class Solution {
+//     public int maxLength(List<String> list) {
+//         int cnt=0;
+//         List<String> arr=new ArrayList<>();
+//         arr.add(list.get(0));
+//         String prev=list.get(0);
+//         for(int i=1; i<list.size(); i++){
+//             String str=list.get(i);
+//             if(arr.contains(prev)){
+//                 if(prev.length()<str.length()){
+//                     list.remove(list.size()-1);
+//                     list.add(str);
+//                 }else{
+//                     continue;
+//                 }
+//                 prev=list.get(list.size()-1);
+//             }else{
+//                 arr.add(str);
+//             }
+//         }
+//         for(int i = 0; i<list.size(); i++){
+//             cnt+=list.get(i).length();
+//         }
+//         return cnt;
+//     }
+// }
+
+class Solution {
+    private int maxi=Integer.MIN_VALUE;
+    private void solve(List<String> arr, int idx, StringBuilder sb){
+        if(idx==arr.size()){
+            return;
+        }
+        int size=sb.length();
+        sb.append(arr.get(idx));
+        if(checkChar(sb)){
+            maxi=Math.max(maxi,sb.length());
+        }
+        solve(arr,idx+1,sb);
+        sb.delete(size,sb.length());
+        if(checkChar(sb)){
+            maxi=Math.max(maxi,sb.length());
+        }
+        solve(arr,idx+1,sb);
+    }
+    private boolean checkChar(StringBuilder sb){
+        Set<Character> set = new HashSet<>();
+        for(int i=0; i<sb.length(); i++){
+            char ch=sb.charAt(i);
+            if(set.contains(ch)){
+                return false;
+            }else{
+                set.add(ch);
+            }
+        }
+        return true;
+    }
+    public int maxLength(List<String> arr) {
+        int n=arr.size();
+        for(int i=0; i<n; i++){
+            solve(arr,i,new StringBuilder());
+        }
+        return maxi;
+    }
+}

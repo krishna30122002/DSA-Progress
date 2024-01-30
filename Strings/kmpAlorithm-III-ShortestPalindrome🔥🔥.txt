@@ -1,0 +1,68 @@
+// class Solution {
+//     public boolean isPalindrome(String s, int x){
+//     int left = 0;
+//     int right = x;
+//     while(left < right){
+//         if(s.charAt(left) == s.charAt(right)){
+//             left++;
+//             right--;
+//         } else {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
+
+//     public String shortestPalindrome(String s) {
+//         int n=s.length();
+//         int pointer=n-1;
+//         String str="";
+//         while(pointer>0){
+//             if(isPalindrome(s,pointer)){
+//                 str=s.substring(pointer);
+//                 break;
+//             }
+//             pointer--;
+//         }
+//         String temp="";
+//         for(int i=str.length()-1; i>=0; i--){
+//             temp+=str.charAt(i);
+//         }
+//         temp=temp+s;
+//         return temp;
+//     }
+// }
+
+class Solution {
+    public void solve(int[] arr, String s){
+        int i=0;
+        int j=1;
+        while(j<s.length()){
+            if(s.charAt(i)==s.charAt(j)){
+                i++;
+                arr[j]=i;
+                j++;
+            }else{
+                if(i==0){
+                    j++;
+                }else{
+                    i=arr[i-1];
+                }
+            }
+        }
+    }
+    public String shortestPalindrome(String s) {
+        String t="";
+        for(int i=s.length()-1; i>=0; i--){
+            t+=s.charAt(i);
+        }
+        String str=s+"#"+t;
+        int[] arr=new int[str.length()];
+        solve(arr,str);
+        int x=arr[str.length()-1];
+        StringBuilder temp=new StringBuilder(s.substring(x));
+        temp.reverse();
+        temp.toString();
+        return (temp+s);
+    }
+}

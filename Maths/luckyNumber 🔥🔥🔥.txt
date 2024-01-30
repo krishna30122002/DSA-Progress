@@ -1,0 +1,27 @@
+class Solution {
+    public List<Integer> solve(int n){
+        List<Integer> temp=new ArrayList<>();
+        while(n>=1){
+            temp.add(n%10);
+            n=n/10;
+        }
+        return temp;
+    }
+    public boolean isHappy(int n) {
+        List<Integer> list=solve(n);
+        List<Integer> result=new ArrayList<>();
+        int output=0;
+        while(output!=1){
+            output=0;
+            for(int i=0; i<list.size(); i++){
+                output+=(list.get(i)*list.get(i));
+            }
+            if(result.contains(output)){
+                return false;
+            }
+            result.add(output);
+            list=solve(output);
+        }
+        return true;
+    }
+}

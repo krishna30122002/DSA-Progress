@@ -1,0 +1,24 @@
+import java.util.*;
+public class Solution {
+    public static List<Integer> replaceWithRank(List<Integer> arr, int n) {
+        // Write your code here
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        Map<Integer,Integer> map=new HashMap<>();
+        List<Integer> list=new ArrayList<>();
+        for(int i=0; i<arr.size(); i++){
+            pq.add(arr.get(i));
+        }
+        int k=1;
+        while(!pq.isEmpty()){
+            int element=pq.poll();
+            if(!map.containsKey(element)){
+                map.put(element,k);
+                k++;
+            }
+        }
+        for(int i=0; i<arr.size(); i++){
+            list.add(map.get(arr.get(i)));
+        }
+        return list;
+    }
+}

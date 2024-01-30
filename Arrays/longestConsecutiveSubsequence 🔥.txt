@@ -1,0 +1,25 @@
+// Done without Stack
+// Good Question
+
+class Solution {
+    public int trap(int[] height) {
+        int n = height.length;
+        int cnt = 0;
+        int[] lMax=new int[n];
+        int[] rMax=new int[n];
+        int maxi1=Integer.MIN_VALUE;
+        for(int i = 0; i<n;i++){
+            maxi1=Math.max(maxi1,height[i]);
+            lMax[i]=maxi1;
+        }
+        int maxi2=Integer.MIN_VALUE;
+        for(int i = n-1; i>=0;i--){
+            maxi2=Math.max(maxi2,height[i]);
+            rMax[i]=maxi2;
+        }
+        for(int i = 1; i<n-1;i++){
+            cnt+=Math.min(lMax[i],rMax[i])-height[i];
+        }
+        return cnt;
+    }
+}

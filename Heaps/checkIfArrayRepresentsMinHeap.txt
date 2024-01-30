@@ -1,0 +1,22 @@
+class Solution {
+    public boolean solve(long arr[], long parent, long n){
+        if(parent>=n){
+            return true;
+        }
+        long left=(2*parent)+1;
+        long right=(2*parent)+2;
+        if(arr[left]>arr[parent] && left<n){
+            return false;
+        }
+        if(arr[right]>arr[parent] && right<n){
+            return false;
+        }
+        return (solve(arr,left,n) && solve(arr,right,n));
+    }
+    
+    public boolean countSub(long arr[], long n)
+    {
+        // Your code goes here
+        return solve(arr,0,n);
+    }
+}

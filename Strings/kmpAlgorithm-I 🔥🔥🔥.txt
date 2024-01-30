@@ -1,0 +1,58 @@
+// Find the Index of the First Occurrence in a String
+
+// class Solution {
+//     public int strStr(String haystack, String needle) {
+//         if(haystack.contains(needle)){
+//             return haystack.indexOf(needle);
+//         }
+//         return -1;
+//     }
+// }
+
+class Solution {
+    public void solve(String needle, int[] lps){
+        int j=0;
+        int i=1;
+
+        while(i<needle.length()) {
+            if(needle.charAt(i)==needle.charAt(j)){
+                j++;
+                lps[i]=j;
+                i++;
+            }
+            else{
+                if(j!=0) {
+                    j=lps[j-1];
+                }else{
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+    }
+    public int strStr(String haystack, String needle) {
+        if(needle.length()>haystack.length()){
+            return -1;
+        }
+        int[] lps=new int[needle.length()];
+        solve(needle,lps);
+
+        int i=0,j=0;
+        while(i<haystack.length()){
+            if(haystack.charAt(i)==needle.charAt(j)){
+                i++;
+                j++;
+            }else{
+                if(j!=0){
+                    j=lps[j-1];                       
+                }else{
+                    i++;
+                } 
+            }
+            if(j==needle.length()){
+                return (i-needle.length());
+            } 
+        }
+        return -1;
+    }
+}

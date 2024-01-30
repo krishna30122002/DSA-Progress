@@ -1,0 +1,80 @@
+public class Solution {
+
+    static class MinHeap {
+        private int[] arr;
+        private int size;
+        private int capacity;
+
+        // Constructor for the class.
+        MinHeap(int capacity) {
+            // Write your code here.
+            arr=new int[capacity];
+            size=0;
+            this.capacity=capacity;
+        }
+
+        // Implement the function to remove minimum element.
+        int extractMinElement() {
+            // Write you code here.
+            if(size==0){
+                return -1;
+            }
+            int res=arr[0];
+            swap(0,size-1);
+            size--;
+            minHeapify(0);
+            return res;
+        }
+
+        // Implement the function to delete an element.
+        void deleteElement(int ind) {
+            // Write you code here.
+            if(ind>=size){
+                return;
+            }
+            swap(ind,size-1);
+            minHeapify(ind);
+        }
+
+        // Implement the function to insert 'val' in the heap.
+        void insert(int val) {
+            // Write you code here.
+            if(size==capacity){
+                return;
+            }
+            arr[size]=val;
+            size++;
+            int idx=size-1;
+            while(idx>=0){
+                int parent=(idx-1)/2;
+                if(arr[parent]>arr[idx]){
+                    swap(parent,idx);
+                    idx=parent;
+                }else{
+                    break;
+                }
+            }
+        }
+        void minHeapify(int i){
+            int lesser=i;
+            int left=(2*i)+1;
+            int right=(2*i)+2;
+            
+            if(left<size && arr[left]<arr[lesser]){
+                lesser=left;
+            }
+            if(right<size && arr[right]<arr[lesser]){
+                lesser=right;
+            }
+            if(lesser!=i){
+                swap(i,lesser);
+                minHeapify(lesser);
+            }
+        }
+        void swap(int i, int j){
+            int temp=arr[i];
+            arr[i]=arr[j];
+            arr[j]=temp;
+        }
+    }
+};
