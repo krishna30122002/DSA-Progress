@@ -1,0 +1,76 @@
+// THIS IS THE GOOD QUESTION TO UNDERSTAND LRU STRUCTURE AND CREATION OF NEW DATA STRUCTURE
+// INSPITE OF I DIDN'T UNDERSTOOD MUCH
+
+//JUST FOLLOWED STRIVER I MUST DO IT AGAIN 
+
+//JUST SUBMITTED AS I AM CURIOUS TO DO THIS PROBLEM
+//BUT I WILL AGAIN DO IT AND RESUBMIT IT
+
+// LOL WRONG ANSWER, WILL DO IT LATER, HONESTLY
+
+class LRUCache {
+    class ListNode {
+        int key;
+        int val;
+        ListNode prev;
+        ListNode next;
+
+        ListNode(int key, int val) {
+            this.key = key;
+            this.val = val;
+        }
+    }
+    ListNode head=new ListNode(-1,-1);
+    ListNode tail=new ListNode(-1,-1);
+    Map<Integer,ListNode> map=new HashMap<>();
+    int capacity;
+
+    public LRUCache(int capacity) {
+        this.head.next=tail;
+        this.tail.prev=head;
+        this.capacity=capacity;
+    }
+    
+    public int get(int key) {
+        if(map.containsKey(key)){
+            ListNode node = map.get(key);
+            remove(node);
+            insert(node);
+            int x=node.val;
+            return x;
+        }else{
+            return -1;
+        }
+    }
+    
+    public void put(int key, int value) {
+        if(map.containsKey(key)){
+            remove(map.get(key));
+        }
+        if(map.size()==capacity){
+            remove(tail.prev);
+        }
+        insert(new ListNode(key,value));
+    }
+
+    public void remove(ListNode node){
+        map.remove(node.key);
+        node.prev.next=node.next;
+        node.next.prev=node.prev;
+    }
+
+    public void insert(ListNode node){
+        map.put(node.key,node);
+        node.next=head.next;
+        node.next.prev=node;
+        head.next=node;
+        node.prev=head;
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+**/

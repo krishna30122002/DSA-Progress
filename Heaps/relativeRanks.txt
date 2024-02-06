@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Solution {
+    public String[] findRelativeRanks(int[] score) {
+        List<Integer> list = new ArrayList<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder()); 
+        for(int n:score){
+            list.add(n);
+            pq.add(n);
+        }
+        String[] result = new String[list.size()];
+        for(int i=0; i<list.size(); i++){
+            int num=pq.poll();
+            int idx=list.indexOf(num);
+            if(i==0)
+                result[idx] = "Gold Medal";
+            else if(i==1)
+                result[idx] = "Silver Medal";
+            else if(i==2)
+                result[idx] = "Bronze Medal";
+            else
+                result[idx] = String.valueOf(i+1);
+        }
+        return result;
+    }
+}

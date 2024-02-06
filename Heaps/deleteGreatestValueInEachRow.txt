@@ -1,0 +1,27 @@
+class Solution {
+    public int deleteGreatestValue(int[][] grid) {
+        int n=grid.length;
+        int m=grid[0].length;
+
+        List<PriorityQueue<Integer>> pq = new ArrayList<>();
+
+        for(int i=0; i<n; i++){
+            PriorityQueue<Integer> maxPQ = new PriorityQueue<>(Collections.reverseOrder()); 
+            for(int j=0; j<m; j++){
+                maxPQ.add(grid[i][j]);
+            }
+            pq.add(maxPQ);
+        }
+
+        int sum=0;
+        for(int i=0; i<m; i++){
+            int num=-1;
+            for(int j=0; j<n; j++){
+                PriorityQueue<Integer> temp = pq.get(j);
+                num=Math.max(num,temp.poll());
+            }
+            sum+=num;
+        }
+        return sum;
+    }
+}

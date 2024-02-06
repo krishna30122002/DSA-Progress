@@ -1,0 +1,62 @@
+// Minimum Window Substring
+
+class Solution {
+    public String minWindow(String s, String t) {
+        int m = s.length();
+        int n = t.length();
+        String str = "";
+        if (n>m) {
+            return str;
+        }
+
+        Map<Character,Integer> map2 = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            map2.put(t.charAt(i), map2.getOrDefault(t.charAt(i), 0) + 1);
+        }
+
+        int matchCnt = 0;
+        int desiredMatchCnt = n;
+
+        Map<Character,Integer> map1 = new HashMap<>();
+
+        int i = -1;
+        int j = -1;
+
+        while (true) {
+            // acquire
+            while (i<m-1 && matchCnt<desiredMatchCnt) {
+                i++;
+                char ch = s.charAt(i);
+                map1.put(ch, map1.getOrDefault(ch, 0) + 1);
+
+                if (map1.getOrDefault(ch, 0) <= map2.getOrDefault(ch, 0)) {
+                    matchCnt++;
+                }
+            }
+
+            // release, collect answers and then release
+            while (j<i && matchCnt==desiredMatchCnt) {
+                String temp=s.substring(j+1,i+1);
+                if (str.length() == 0 || temp.length() < str.length()) {
+                    str=temp;
+                }
+
+                j++;
+                char ch=s.charAt(j);
+                if (map1.get(ch)==1) {
+                    map1.remove(ch);
+                } else {
+                    map1.put(ch,map1.getOrDefault(ch,0)-1);
+                }
+                if (map1.getOrDefault(ch,0)<map2.getOrDefault(ch,0)) {
+                    matchCnt--;
+                }
+            }
+
+            if (i==m-1 && matchCnt<desiredMatchCnt) {
+                break;
+            }
+        }
+        return str;
+    }
+}

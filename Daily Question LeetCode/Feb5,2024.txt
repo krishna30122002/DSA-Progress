@@ -1,0 +1,13 @@
+// First Unique Character in a String
+
+class Solution {
+    public int firstUniqChar(String s) {
+        int c=-1;
+        for(int i=s.length()-1; i>=0; i--){
+            if(s.lastIndexOf(s.charAt(i))==s.indexOf(s.charAt(i))){
+                c=i;
+            }
+        }
+        return c;
+    } 
+}

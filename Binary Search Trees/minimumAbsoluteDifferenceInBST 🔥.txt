@@ -1,0 +1,21 @@
+class Solution {
+    public void solve(TreeNode root, int[] arr){
+        if(root==null){
+            return;
+        }
+        solve(root.left,arr);
+        int minus=Math.abs(root.val-arr[1]);
+        arr[0]=Math.min(arr[0],minus);
+        arr[1]=root.val;
+        solve(root.right,arr);
+        return;
+    }
+    
+    public int getMinimumDifference(TreeNode root) {
+        int[] arr=new int[2];
+        arr[0]=100000;
+        arr[1]=200000;
+        solve(root,arr);
+        return arr[0];
+    }
+}

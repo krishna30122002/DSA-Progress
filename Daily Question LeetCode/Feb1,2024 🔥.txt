@@ -1,0 +1,34 @@
+// Divide Array Into Arrays With Max Difference
+
+class Solution {
+    public int[][] divideArray(int[] nums, int limit) {
+        Arrays.sort(nums);
+        int n=nums.length;
+        int k= n/3;
+        int[][] res=new int[k][3];
+        int cnt=0;
+
+        for(int i=0; i<n; i+=3) {
+            List<Integer> temp=new ArrayList<>();
+
+            if((i+2)<n && nums[i+2]-nums[i]<=limit) {
+                temp.add(nums[i]);
+                temp.add(nums[i+1]);
+                temp.add(nums[i+2]);
+
+                res[cnt][0]=temp.get(0);
+                res[cnt][1]=temp.get(1);
+                res[cnt][2]=temp.get(2);
+
+                temp.remove(0);
+                temp.remove(0);
+                temp.remove(0);
+            }else{
+                return new int[0][0];
+            }
+            cnt++;
+        }
+
+        return res;
+    }
+}

@@ -1,0 +1,32 @@
+// Partition Array for Maximum Sum
+
+class Solution {
+    public int solve(int[] arr, int idx, int n, int k, int[] dp){
+        if(idx==n){
+            return 0;
+        }
+        if(dp[idx]!=-1){
+            return dp[idx];
+        }
+
+        int cnt=0;
+        int res=Integer.MIN_VALUE;
+        int maxi=Integer.MIN_VALUE;
+
+        for(int i=idx; i<Math.min(n,idx+k); i++){
+            int sum=0;
+            cnt++;
+            maxi=Math.max(maxi,arr[i]);
+            sum=(cnt*maxi)+solve(arr,i+1,n,k,dp);
+            res=Math.max(res,sum);
+        }
+        dp[idx]=res;
+        return res;
+    }
+    public int maxSumAfterPartitioning(int[] arr, int k) {
+        int n=arr.length;
+        int[] dp=new int[n];
+        Arrays.fill(dp,-1);
+        return solve(arr,0,n,k,dp);
+    }
+}
