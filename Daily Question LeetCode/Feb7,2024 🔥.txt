@@ -1,0 +1,45 @@
+// Sort Characters by Frequency
+
+// By Hashing
+
+// class Solution {
+//     public String frequencySort(String s) {
+//         HashMap<Character,Integer> map=new HashMap<>();
+//         StringBuilder sb= new StringBuilder();
+//         for(int i=0;i<s.length();i++){
+//             char ch=s.charAt(i);
+//             map.put(ch,map.getOrDefault(ch,0)+1);
+//         }
+//         List<Character> list=new ArrayList(map.keySet());
+//         list.sort((ob1,ob2)->map.get(ob2)-map.get(ob1));
+//         for(char ch:list){
+//         for(int i=0;i<map.get(ch);i++){
+//             sb.append(ch);
+//         }
+//         }
+//         return sb.toString();
+//     }
+// }
+
+// By Priority Queue
+
+class Solution {
+    public String frequencySort(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        PriorityQueue<Map.Entry<Character,Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        pq.addAll(map.entrySet());
+        StringBuilder sb = new StringBuilder();
+        while (!pq.isEmpty()) {
+            Map.Entry<Character, Integer> entry = pq.poll();
+            char ch = entry.getKey();
+            int f = entry.getValue();
+            for (int i = 0; i < f; i++) {
+                sb.append(ch);
+            }
+        }
+        return sb.toString();
+    }
+}

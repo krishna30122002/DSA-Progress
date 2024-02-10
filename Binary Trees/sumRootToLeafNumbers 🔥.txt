@@ -1,0 +1,21 @@
+class Solution {
+    int maxSum=0;
+    public void solve(TreeNode root, int sum){
+        sum=(sum*10)+root.val;
+        if(root.left==null && root.right==null){
+            maxSum=maxSum+sum;
+            return;
+        }
+        if(root.left!=null){
+            solve(root.left,sum);
+        }
+        if(root.right!=null){
+            solve(root.right,sum);
+        }
+        return;
+    }
+    public int sumNumbers(TreeNode root) {
+        solve(root,0);
+        return maxSum;
+    }
+}
