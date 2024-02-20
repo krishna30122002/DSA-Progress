@@ -1,0 +1,27 @@
+class Solution {
+    // public int solve(int n){
+    //     if(n==0){
+    //         return 1;
+    //     }
+    //     return n*solve(n-1);
+    // }
+    public int trailingZeroes(int n) {
+        // int fact=solve(n);
+        // int cnt=0;
+        // while(fact!=0){
+        //     if(fact%10==0){
+        //         cnt++;
+        //     }else{
+        //         break;
+        //     }
+        //     fact=fact/10;
+        // }
+        // return cnt;
+        int cnt=0;
+        while(n>0){
+            n/=5;
+            cnt+=n;
+        }
+        return cnt;
+    }
+}

@@ -1,0 +1,24 @@
+// Find Polygon With the Largest Perimeter
+
+class Solution {
+    public long largestPerimeter(int[] arr) {
+        Arrays.sort(arr);
+        int n = arr.length;
+        if(n==2){
+            return -1;
+        }
+        long sum = (long)(arr[0]+arr[1]);
+        long temp = 0;
+        long cnt = 2;
+        for(int i = 2; i<n; i++){
+            if((long)arr[i]<sum){
+                sum+=(long)arr[i];
+                temp = sum;
+                cnt++;
+            }else{
+                sum+=(long)arr[i];    
+            }
+        }
+        return cnt!=2?temp:-1;
+    }
+}

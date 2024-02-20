@@ -1,0 +1,34 @@
+class Solution {
+    public int solve(int idx, int n, String s, List<String> wordDict, int[] dp){
+        if(idx==n){
+            return 1;
+        }
+        if(dp[idx]!=-1){
+            return dp[idx];
+        }
+        for(int i=idx+1; i<=n; i++){
+            String substr=s.substring(idx,i);
+            if(wordDict.contains(substr)){
+                if(solve(i,n,s,wordDict,dp)==1){
+                    dp[idx]=1;
+                    return dp[idx];
+                }
+            }
+        }
+        // if(wordDict.contains(substr)){
+        //     // wordDict.remove(wordDict.indexOf(substr));
+        //     return true;
+        // // }
+        // solve(idx+1, n, s, wordDict);
+        dp[idx]=0;
+        return dp[idx];
+    }
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int[] dp=new int[s.length()+1];
+        Arrays.fill(dp,-1);
+        if(solve(0,s.length(),s,wordDict,dp)==1){
+            return true;
+        }
+        return false;
+    }
+}

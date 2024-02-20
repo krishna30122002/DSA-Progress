@@ -1,0 +1,27 @@
+// class Solution {
+//     public boolean canJump(int[] arr) {
+//         int mark = arr.length-1;
+//         for(int i=mark;i>=0;i--){
+//             if((i+arr[i])>=mark){
+//                 mark=i;
+//             }
+//         }
+//         if(mark>0){
+//             return false;
+//         }
+//         return true;
+//     }
+// }
+
+class Solution{
+    public boolean canJump(int[] arr){
+        int reach=0;
+        for(int i=0; i<arr.length; i++){
+            if(i>reach){
+                return false;
+            }
+            reach=Math.max(reach,i+arr[i]);
+        }
+        return true;
+    }
+}

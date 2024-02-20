@@ -1,0 +1,22 @@
+class Solution 
+{
+    public static int maxMeetings(int start[], int end[], int n)
+    {
+        int[][] allot=new int[n][2];
+        for(int i=0; i<n; i++){
+            allot[i][0]=start[i];
+            allot[i][1]=end[i];
+        }
+        Arrays.sort(allot, Comparator.comparingInt((int[] row) -> row[1]));
+        int cnt = 0;
+        int endTime = 0;
+        
+        for (int i = 0; i < n; i++) {
+            if (allot[i][0] > endTime) {
+                cnt++;
+                endTime = allot[i][1]; 
+            }
+        }
+        return cnt;
+    }
+}

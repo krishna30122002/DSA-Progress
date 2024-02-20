@@ -1,0 +1,53 @@
+// Least Number of Unique Integers after K Removals
+
+// class Solution {
+//     public int findLeastNumOfUniqueInts(int[] arr, int k) {
+//         List<Integer> list=new ArrayList<>();
+//         HashMap<Integer,Integer> map=new HashMap<>();
+//         for(int i:arr){
+//             map.put(i,map.getOrDefault(i,0)+1);
+//         }
+//         for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+//             list.add(entry.getValue());
+//         }
+//         Collections.sort(list);
+//         int cnt=0;
+//         int flag=0;
+//         while(true){
+//             if(k==0){
+//                 cnt=list.size();
+//                 break;
+//             }
+//             if(k<0){
+//                 list.add(flag);
+//                 cnt=list.size();
+//                 break;
+//             }
+//             k-=list.get(0);
+//             flag=list.get(0);
+//             list.remove(0);
+//         }
+//         return cnt;
+//     }
+// }
+
+class Solution {
+    public int findLeastNumOfUniqueInts(int[] arr, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i : arr) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.comparingInt(map::get));
+        pq.addAll(map.keySet());
+        while (k > 0 && !pq.isEmpty()) {
+            int key = pq.poll();
+            int freq = map.get(key);
+            k -= freq;
+            if (k >= 0) {
+                map.remove(key);
+            }
+        }
+        
+        return map.size();
+    }
+}

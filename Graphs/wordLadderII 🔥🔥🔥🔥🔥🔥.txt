@@ -1,0 +1,88 @@
+//VERY VERY EXTREMELY HARD QUESTION MUST DO AGAIN, AGAIN AND AGAIN MUCH MORE DIFFICULT THAN WORD LADDER 1
+
+class Pair{
+    String first;
+    int second;
+
+    Pair(String _first, int _second){
+        this.first=_first;
+        this.second=_second;
+    }
+}
+
+class Solution {
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        HashMap<String, Integer> map = new HashMap<>();
+
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(beginWord, 1));
+
+        HashSet<String> visited = new HashSet<>();
+        visited.add(beginWord);
+
+        while (!q.isEmpty()) {
+            String word = q.peek().first;
+            int steps = q.peek().second;
+            q.remove();
+
+            map.put(word, steps);
+
+            if(endWord.equals(word)){
+                break;
+            }
+
+            for (String s : wordList) {
+                if (!visited.contains(s) && solve(word, s)) {
+                    visited.add(s);
+                    q.add(new Pair(s, steps + 1));
+                }
+            }
+        }
+
+        List<String> temp = new ArrayList<>();
+        List<List<String>> list = new ArrayList<>();
+
+        if (!map.containsKey(endWord)){
+            return list;
+        }
+
+        dfs(endWord, beginWord, wordList, map, temp, list);
+
+        return list;
+    }
+
+    public void dfs(String end, String begin, List<String> wordList, HashMap<String, Integer> map, List<String> temp, List<List<String>> list) {
+        if (end.equals(begin)) {
+            temp.add(0, begin);
+            List<String> t = new ArrayList<>(temp);
+            list.add(t);
+            temp.remove(0);
+            return;
+        }
+
+        temp.add(0, end);
+        for (String s : map.keySet()) {
+            if (map.get(s) < map.get(end) && solve(end, s)) dfs(s, begin, wordList, map, temp, list);
+        }
+        temp.remove(0);
+    }
+
+    public boolean solve(String str1, String str2) {
+        if (str1.equals(str2)){
+            return false;
+        }
+
+        int cnt = 0;
+        for (int i = 0; i < str1.length(); i++) {
+            if (str1.charAt(i) != str2.charAt(i)) cnt++;
+            if (cnt >= 2){
+                return false;
+            }
+        }
+
+        if(cnt==1){
+            return true;
+        }
+        return false;
+    }
+}

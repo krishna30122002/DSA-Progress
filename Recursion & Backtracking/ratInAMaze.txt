@@ -1,0 +1,38 @@
+class Solution {
+    static String dir = "URDL";
+    public static void solve(int row, int col, int n, int[] drow, int[] dcol, StringBuilder sb, ArrayList<String> list, int[][] vis, int[][] mat){
+        if(row==n-1 && col==n-1){
+            list.add(sb.toString());
+            return;
+        }
+        for(int i=0; i<4; i++){
+            int nrow=row+drow[i];
+            int ncol=col+dcol[i];
+            if(nrow>=0 && nrow<n && ncol>=0 && ncol<n && vis[nrow][ncol]==0 && mat[nrow][ncol]==1){
+                sb.append(dir.charAt(i));
+                vis[nrow][ncol]=1;
+                solve(nrow,ncol,n,drow,dcol,sb,list,vis,mat);
+                sb.deleteCharAt(sb.length()-1);
+                vis[nrow][ncol]=0;
+            }
+        }
+    }
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        // Your code here
+		ArrayList<String> list=new ArrayList<>();
+		StringBuilder sb = new StringBuilder();
+		
+		if(m[0][0] == 0 || m[n-1][n-1] == 0){
+		    return list;
+		}
+		
+		int[] drow={-1,0,+1,0};
+		int[] dcol={0,+1,0,-1};
+		
+		int[][] vis=new int[n][n];
+		vis[0][0]=1;
+		solve(0,0,n,drow,dcol,sb,list,vis,m);
+		Collections.sort(list);
+		return list;
+    }
+}

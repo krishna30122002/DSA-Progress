@@ -1,0 +1,23 @@
+class Solution {
+    public void solve(int idx, int n, int open, int close, StringBuilder sb, List<String> list){
+        if(open==0 && close==0){
+            list.add(sb.toString());
+        }
+        if(open>0){
+            sb.append("(");
+            solve(idx+1,n,open-1,close,sb,list);
+            sb.deleteCharAt(sb.length()-1);
+        }
+        if(open<close){
+            sb.append(")");
+            solve(idx+1,n,open,close-1,sb,list);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+    public List<String> generateParenthesis(int n) {
+        StringBuilder sb=new StringBuilder();
+        List<String> list=new ArrayList<>();
+        solve(0,n,n,n,sb,list);
+        return list;
+    }
+}

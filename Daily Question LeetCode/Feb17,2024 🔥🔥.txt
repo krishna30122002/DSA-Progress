@@ -1,0 +1,28 @@
+// Furthest Building You Can Reach
+
+class Solution {
+    public int furthestBuilding(int[] heights, int bricks, int ladders) {
+        int n=heights.length;
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        for(int i=1; i<n; i++){
+            int minus=heights[i]-heights[i-1];
+            if(minus>0){
+                if(pq.size()<ladders){
+                    pq.add(minus);
+                }else{
+                    int b=minus;
+                    if(!pq.isEmpty() && pq.peek()<minus){
+                        b=pq.poll();
+                        pq.add(minus);
+                    }
+                    if(bricks-b>=0){
+                        bricks-=b;
+                    }else{
+                        return i-1;
+                    }
+                }
+            }
+        }
+        return n-1;
+    }
+}

@@ -1,0 +1,88 @@
+// dfs
+
+import java.util.*;
+
+public class Solution {
+    static boolean dfs(int node, int parent, List<List<Integer>> adj, int[] vis) {
+        vis[node] = 1;
+        for (int neighbour : adj.get(node)) {
+            if (vis[neighbour] == 0) {
+                if (dfs(neighbour, node, adj, vis)) {
+                    return true;
+                }
+            } else if (neighbour != parent) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static class Graph {
+        boolean detectCycle(int V, List<List<Integer>> adj) {
+            // Write your code here.
+            int[] vis = new int[V];
+            for (int i = 0; i < V; i++) {
+                if (vis[i] == 0) {
+                    if (dfs(i, -1, adj, vis)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    };
+}
+
+// bfs
+
+import java.util.*;
+
+public class Solution {
+    static class Pair {
+        int first;
+        int second;
+
+        Pair(int first, int second) {
+            this.first = first;
+            this.second = second;
+        }
+    }
+
+    static class Graph {
+        boolean solve(int idx, List<List<Integer>> adj, boolean[] vis) {
+            vis[idx] = true;
+            Queue<Pair> q = new LinkedList<>();
+            q.offer(new Pair(idx, -1));
+
+            while (!q.isEmpty()) {
+                int node = q.peek().first;
+                int parent = q.peek().second;
+                q.remove();
+
+                for (int n : adj.get(node)) {
+                    if (!vis[n]) {
+                        vis[n] = true;
+                        q.offer(new Pair(n, node));
+                    } else if (parent != n) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        boolean detectCycle(int V, List<List<Integer>> adj) {
+            // Write your code here.
+            boolean[] vis = new boolean[V];
+            Arrays.fill(vis, false);
+            for (int i = 0; i < V; i++) {
+                if (!vis[i]) {
+                    if (solve(i, adj, vis)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    };
+}

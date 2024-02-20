@@ -1,0 +1,23 @@
+class Solution {
+    public void solve(int idx, int n, int k, List<Integer> temp, List<List<Integer>> list){
+        if(temp.size()==k){
+            list.add(new ArrayList<>(temp));
+            return;
+        }
+        // if(idx==n){
+        //     return;
+        // }
+        for(int i=idx; i<=(n-k+temp.size()+1); i++){
+            temp.add(i);
+            solve(i+1,n,k,temp,list);
+            temp.remove(temp.size()-1);
+        }
+        return;
+    }
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> list=new ArrayList<>();
+        List<Integer> temp=new ArrayList<>();
+        solve(1,n,k,temp,list);
+        return list;
+    }
+}
