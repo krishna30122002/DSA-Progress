@@ -1,0 +1,28 @@
+// Minimum Length of String After Deleting Similar Ends
+
+class Solution {
+    public int minimumLength(String s) {
+        int n=s.length();
+        if(n<=1){
+            return n;
+        }
+        int i=0; 
+        int j=n-1;
+        int cnt=0;
+        while(i<j){
+            if(s.charAt(i)==s.charAt(j)){
+                char ch=s.charAt(i);
+                while(i<=j && s.charAt(i)==ch){
+                    i++;
+                }
+                while(i<=j && s.charAt(j)==ch){
+                    j--;
+                }
+            }else{
+                break;
+            }
+        }
+        cnt=j-i;
+        return (cnt+1);
+    }
+}
