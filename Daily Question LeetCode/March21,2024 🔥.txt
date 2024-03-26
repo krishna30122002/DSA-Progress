@@ -1,0 +1,41 @@
+// Reverse Linked List
+
+class Solution {
+    // public ListNode getNode(int idx,ListNode head){
+    //     ListNode temp=head;
+    //     for(int i=0;i<idx;i++){
+    //         temp=temp.next;
+    //     }
+    //     return temp;
+    // }
+       //     int size=0;
+    //       while(head !=null){
+    //           size++;
+    //       }
+    //     int li=0;
+    //     int ri=size-1;
+    //     while(li<ri){
+    //         ListNode left=getNode(li,head);
+    //         ListNode right=getNode(ri,head);
+    //         int temp=left.val;
+    //         left.val=right.val;
+    //         right.val=temp;
+
+    //         li++;
+    //         ri--;
+    //     }
+    //     return head;
+    //  }
+
+    public ListNode reverseList(ListNode head) {
+        ListNode prevNode=null;
+        ListNode currNode=head;
+        while(currNode!=null){
+            ListNode nextNode=currNode.next;
+            currNode.next=prevNode;
+            prevNode=currNode;
+            currNode=nextNode;
+        }
+        return prevNode;
+    }
+}

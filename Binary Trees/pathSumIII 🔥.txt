@@ -1,0 +1,26 @@
+class Solution {
+    int cnt=0;
+    public void solve(TreeNode root, int target, long sum) {
+        if(root==null){
+            return;
+        }
+        sum+=root.val;
+        if(sum==target){
+            cnt+=1;
+        }
+        solve(root.left, target, sum);
+        solve(root.right, target, sum);
+        return;
+    }
+    public int pathSum(TreeNode root, int targetSum) {
+        if(root==null){
+            return 0;
+        } 
+        // int[] a=new int[1];
+        // cnt=0;
+        solve(root, targetSum, 0);
+        pathSum(root.left, targetSum);
+        pathSum(root.right, targetSum);
+        return cnt;
+    }
+}

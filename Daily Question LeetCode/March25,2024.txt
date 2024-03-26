@@ -1,0 +1,24 @@
+// Find All Duplicates in an Array
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int c = -1;
+        List<Integer> list = new ArrayList<>();
+        for(int i = 1; i<n; i++){
+            if(nums[i]==nums[i-1]){
+                if(c==-1){
+                    list.add(nums[i]);
+                    c++;
+                }else{
+                    if(list.get(c)!=nums[i]){
+                        list.add(nums[i]);
+                        c++;
+                    }
+                }
+            }
+        }
+        return list;
+    }
+}

@@ -1,0 +1,82 @@
+// Applying BFS Traversal of Graphs
+
+class Solution {
+    public int minMutation(String start, String end, String[] bank) {
+        int cnt=0;
+        HashSet<String> visited=new HashSet<>();
+        HashSet<String> bankSet=new HashSet<>();
+        Queue<String> q=new LinkedList<>();
+        q.offer(start);
+        for(String s:bank){
+            bankSet.add(s);
+        }
+        visited.add(start);
+
+        while(!q.isEmpty()){
+            int n=q.size();
+            while(n-->0){
+                String current=q.poll();
+                if(current.equals(end)){
+                    return cnt;
+                }
+                for(char ch:("ACTG").toCharArray()){
+                    for(int i=0; i<current.length(); i++){
+
+                        String str=current.substring(0, i)+ch+current.substring(i + 1);
+
+                        if(!visited.contains(str) && bankSet.contains(str)){class Pair{
+    int first,second;
+    Pair(int first, int second){
+        this.first=first;
+        this.second=second;
+    }
+}
+
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        List<List<Pair>> adj=new ArrayList<>();
+        int[] distance=new int[n];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        for(int i=0; i<n; i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int[] row:flights){
+            adj.get(row[0]).add(new Pair(row[1], row[2]));
+        }
+        Queue<Pair> q=new LinkedList<>();
+        q.offer(new Pair(src,0));
+        distance[src]=0;
+        int steps=0;
+        while(!q.isEmpty() && steps<=k){
+            int size=q.size();
+            while(size-->0){
+                Pair p= q.poll();
+                for (Pair i : adj.get(p.first)) {
+                    int node=i.first;
+                    int price=i.second;
+                    int totalCost=price+p.second;
+                    if(distance[node]>totalCost){
+                        distance[node]=totalCost;
+                        q.add(new Pair(node, distance[node]));
+                    }
+                }
+            }
+            steps++;
+        }
+        if(distance[dst]==Integer.MAX_VALUE){
+            return -1;
+        }
+        return distance[dst];
+    }
+}
+                            visited.add(str);
+                            q.offer(str);
+                        }
+                    }
+                }
+            }
+            cnt++;
+        }
+        return -1;
+    }
+}

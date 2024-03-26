@@ -1,0 +1,47 @@
+class Solution {
+    public int[] findOrder(int v, int[][] pre) {
+        List<List<Integer>> adj=new ArrayList<>();
+        int m=pre.length;
+
+        for(int i=0; i<v; i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int[] row:pre){
+            adj.get(row[1]).add(row[0]);
+        }
+        int[] inDegree=new int[v];
+
+        for(int i=0; i<v; i++){
+            for(int it:adj.get(i)){
+                inDegree[it]++;
+            }
+        }
+
+        List<Integer> topo=new ArrayList<>();
+        Queue<Integer> q=new LinkedList<>();
+
+        for(int i=0; i<v; i++){
+            if(inDegree[i]==0){
+                q.offer(i);
+            }
+        }
+        while(!q.isEmpty()){
+            int node=q.poll();
+            topo.add(node);
+            for(int it:adj.get(node)){
+                inDegree[it]--;
+                if(inDegree[it]==0){
+                    q.add(it);
+                }
+            }
+        }
+        if(topo.size()!=v){
+            return new int[]{};
+        }
+        int[] arr = new int[v];
+        for(int i=0; i<v; i++){
+            arr[i]=topo.get(i);
+        }
+        return arr;
+    }
+}

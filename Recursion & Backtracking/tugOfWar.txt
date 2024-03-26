@@ -1,0 +1,29 @@
+import java.util.* ;
+public class Solution {
+	static int minDiff=Integer.MAX_VALUE;
+	public static void solve(int idx, int n, ArrayList<Integer> arr, ArrayList<Integer> list1, ArrayList<Integer> list2, int sum1, int sum2){
+		if(idx==n){
+			int diff=Math.abs(sum1-sum2);
+			minDiff=Math.min(minDiff, diff);
+			return;
+		}
+		if(list1.size()<(n+1)/2){
+			list1.add(arr.get(idx));
+			solve(idx+1, n, arr, list1, list2, sum1+arr.get(idx), sum2);
+			list1.remove(list1.size()-1);
+		}
+		if(list2.size()<(n+1)/2){
+			list2.add(arr.get(idx));
+			solve(idx+1, n, arr, list1, list2, sum1, sum2+arr.get(idx));
+			list2.remove(list2.size()-1);
+		}
+	}
+	public static int tugOfWar(ArrayList<Integer> arr, int n) {
+		// Write your code here.
+		minDiff = Integer.MAX_VALUE;
+		ArrayList<Integer> list1=new ArrayList<>();
+		ArrayList<Integer> list2=new ArrayList<>();
+		solve(0,n,arr,list1,list2,0,0);
+		return minDiff;
+	}
+}

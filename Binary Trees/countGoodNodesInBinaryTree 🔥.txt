@@ -1,0 +1,22 @@
+class Solution {
+    int cnt=0;
+    public void solve(TreeNode root, int maxi){
+        if(root==null){
+            return;
+        }
+        if(root.val>=maxi){
+            cnt++;
+            maxi=root.val;
+        }
+        solve(root.left,maxi);
+        solve(root.right,maxi);
+    }
+    public int goodNodes(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        int maxi=Integer.MIN_VALUE;
+        solve(root,maxi);
+        return cnt;
+    }
+}

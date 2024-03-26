@@ -1,0 +1,27 @@
+Find the Pivot Integer
+
+class Solution {
+    public int pivotInteger(int n) {
+        int dummy=n;
+        int ele=0;
+        while(true){
+            int sum1=0;
+            for(int i=1; i<=dummy; i++){
+                sum1+=i;
+            }
+            int sum2=0;
+            for(int i=dummy; i<=n; i++){
+                sum2+=i;
+            }
+            if(sum1==sum2){
+                ele=dummy;
+                break;
+            }
+            if(dummy==0){
+                return -1;
+            }
+            dummy--;
+        }
+        return ele;
+    }
+}

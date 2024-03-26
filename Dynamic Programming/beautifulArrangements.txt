@@ -1,0 +1,21 @@
+class Solution {
+    int res=0;
+    public void solve(int n, int idx, int[] arr){
+        if(idx>n){
+            res++;
+            return;
+        }
+        for(int i=1; i<=n; i++){
+            if(arr[i]==0 && (idx%i==0 || i%idx==0)){
+                arr[i]=idx;
+                solve(n,idx+1,arr);
+                arr[i]=0;
+            }
+        }
+    }
+    public int countArrangement(int n) {
+        int[] arr=new int[n+1];
+        solve(n,1,arr);
+        return res;
+    }
+}

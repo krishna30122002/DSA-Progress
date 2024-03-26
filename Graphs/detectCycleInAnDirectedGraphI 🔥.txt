@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class Solution {
+    public static Boolean dfs(int node, int[] vis, int[] pathVis, List<List<Integer>> adj) {
+        vis[node] = 1;
+        pathVis[node] = 1;
+        for (int i : adj.get(node)) {
+            if (vis[i] == 0) {
+                if (dfs(i, vis, pathVis, adj)) {
+                    return true;
+                }
+            } else if (pathVis[i] == 1) {
+                return true;
+            }
+        }
+        pathVis[node] = 0;
+        return false;
+
+    }
+
+    public static Boolean isCyclic(int[][] edges, int v, int e) {
+        // Write your code here.
+        List<List<Integer>> adj = new ArrayList<>();
+        int n = edges.length;
+        for (int i = 0; i < v; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int i = 0; i < e; i++) {
+            int node = edges[i][0];
+            int edge = edges[i][1];
+            adj.get(node).add(edge);
+        }
+
+        int[] vis = new int[v];
+        int[] pathVis = new int[v];
+
+        for (int i = 0; i < v; i++) {
+            if (vis[i] == 0) {
+                if (dfs(i, vis, pathVis, adj)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}

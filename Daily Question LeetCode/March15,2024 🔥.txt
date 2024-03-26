@@ -1,0 +1,101 @@
+// Product of Array Except Self
+
+// krishna30122002
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        // int multiply=1;
+        // int mulZero=1;
+        // for(int i = 0; i<nums.length; i++){
+        //     if(nums[i]!=0){
+        //        mulZero*=nums[i];
+        //     }
+        //     multiply*=nums[i];
+        // }
+        // for(int i = 0; i<nums.length; i++){
+        //     int n = nums[i];
+        //     int m = multiply;
+        //     if (n == 0) {
+        //         if(mulZero==1) nums[i]=0;
+        //         else nums[i]=mulZero;
+        //     } else {
+        //         nums[i]=m/n;
+        //     }
+        // }
+        // return nums;
+        int n=nums.length;
+        int[] dp = new int[n];
+        dp[0]=1;
+        for(int i = 1; i<n; i++){
+            dp[i]=dp[i-1]*nums[i-1];
+        }
+        int multiply=1;
+        for(int i = n-1;i>=0;i--){
+            dp[i]*=multiply;
+            multiply*=nums[i];
+        }
+        return dp;
+    }
+}
+
+// _mindFlayer_
+
+// class Solution {
+//     public int[] productExceptSelf(int[] nums) {
+//         int n=nums.n;
+//         boolean flag=false;
+//         long product=1;
+//         for(int i=0; i<n; i++){
+//             if(nums[i]!=0){
+//                 product*=nums[i];
+//             }else{
+//                 flag=true;
+//             }
+//         }
+//         int cnt=0;
+//         for(int i=0; i<n; i++){
+//             if(nums[i]==0){
+//                 cnt++;
+//             }
+//         }
+//         if(cnt>1){
+//             for(int i=0; i<n; i++){
+//                 nums[i]=0;
+//             }
+//         }else{
+//             for(int i=0; i<n; i++){
+//                 if(flag){
+//                     if(nums[i]==0){
+//                         nums[i]=(int)(product);
+//                     }else{
+//                         nums[i]=0;
+//                     }
+//                 }else{
+//                     nums[i]=(int)(product/nums[i]);
+//                 }
+//             }
+//         }
+//         return nums;
+//     }
+// }
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] arr = new int[n];
+
+        int prePro = 1;
+        for (int i = 0; i < n; i++) {
+            arr[i] = prePro;
+            prePro *= nums[i];
+        }
+
+        int sufPro = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            arr[i] *= sufPro;
+            sufPro *= nums[i];
+        }
+
+        return arr;
+    }
+}

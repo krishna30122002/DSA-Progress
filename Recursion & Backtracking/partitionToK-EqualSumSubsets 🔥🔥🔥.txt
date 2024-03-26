@@ -1,0 +1,94 @@
+// TLE SOLUTION THEN NO TLE SOLUTION
+
+// class Solution {
+//     public boolean solve(int idx, int n, int arr[], int K, int[] subsetSum, int subsetSoFar,
+//         ArrayList<ArrayList<Integer>> list) {
+//         if (idx == n) {
+//             if (subsetSoFar == K) {
+//                 boolean flag = true;
+//                 for (int i = 0; i < subsetSum.length - 1; i++) {
+//                     if (subsetSum[i] != subsetSum[i + 1]) {
+//                         flag = false;
+//                         break;
+//                     }
+//                 }
+//                 if (flag) {
+//                     return true;
+//                 } else {
+//                     return false;
+//                 }
+//             }
+//             return false;
+//         }
+//         for (int i = 0; i < list.size(); i++) {
+//             if (list.get(i).size() > 0) {
+//                 list.get(i).add(arr[idx]);
+//                 subsetSum[i] += arr[idx];
+//                 if (solve(idx + 1, n, arr, K, subsetSum, subsetSoFar, list))
+//                     return true;
+//                 subsetSum[i] -= arr[idx];
+//                 list.get(i).remove(list.get(i).size() - 1);
+//             } else {
+//                 list.get(i).add(arr[idx]);
+//                 subsetSum[i] += arr[idx];
+//                 if (solve(idx + 1, n, arr, K, subsetSum, subsetSoFar + 1, list))
+//                     return true;
+//                 subsetSum[i] -= arr[idx];
+//                 list.get(i).remove(list.get(i).size() - 1);
+//                 break;
+//             }
+//         }
+//         return false;
+//     }
+//     public boolean canPartitionKSubsets(int[] arr, int K) {
+//         int n = arr.length;
+//         if (K == 1) {
+//             return true;
+//         }
+//         int sum = 0;
+//         for (int i : arr) {
+//             sum += i;
+//         }
+//         if (K > n || sum % K != 0) {
+//             return false;
+//         }
+//         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+//         int[] subsetSum = new int[K];
+//         for (int i = 0; i < K; i++) {
+//             list.add(new ArrayList<>());
+//         }
+//         return solve(0, n, arr, K, subsetSum, 0, list);
+//     }
+// }
+
+class Solution {
+    public boolean solve(int idx, int sssf, int k, int currSum, boolean vis[], int arr[]) {
+        if (k == 0)
+            return true;
+        if (currSum > sssf)
+            return false;
+        if (currSum == sssf)
+            return solve(0, sssf, k - 1, 0, vis, arr);
+        for (int i = idx; i < arr.length; i++) {
+            if (vis[i])
+                continue;
+            vis[i] = true;
+            if (solve(i + 1, sssf, k, currSum + arr[i], vis, arr))
+                return true;
+            vis[i] = false;
+        }
+        return false;
+    }
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int total = 0;
+        int n = nums.length;
+        for (int i : nums)
+            total += i;
+        if (total < k || total % k != 0) {
+            return false;
+        }
+        int sssf = total / k;
+        boolean vis[] = new boolean[n];
+        return solve(0, sssf, k, 0, vis, nums);
+    }
+}

@@ -1,0 +1,23 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+class Solution {
+    public static void solve(int idx, int n, String s, String ans, ArrayList<String> list){
+        if(idx==n){
+            if(!ans.equals("")){
+                list.add(ans);
+            }
+            return;
+        }
+        solve(idx+1, n, s, ans+s.charAt(idx), list);
+        solve(idx+1, n, s, ans, list);
+    }
+    public static ArrayList<String> subsequences(String str) {
+        // Write your code here
+        int n=str.length();
+        ArrayList<String> list=new ArrayList<>();
+        solve(0,n,str,"",list);
+        return list;
+    }
+}

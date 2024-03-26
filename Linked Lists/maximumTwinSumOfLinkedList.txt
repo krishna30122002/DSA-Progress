@@ -1,0 +1,76 @@
+// class Solution {
+//     public int pairSum(ListNode head) {
+//         if(head==null || head.next==null){
+//             return 0;
+//         }
+//         ListNode last=head;
+//         int cnt=0;
+//         while(last!=null){
+//             last=last.next;
+//             cnt++;
+//         }
+//         ListNode curr=head;
+//         int i=0;
+//         while(i<cnt/2){
+//             curr=curr.next;
+//             i++;
+//         }
+//         ListNode prevNode=null;
+//         ListNode currNode=curr.next;
+//         while(currNode!=null){
+//             ListNode nextNode=currNode.next;
+//             currNode.next=prevNode;
+//             prevNode=currNode;
+//             currNode=nextNode;
+//         }
+//         curr.next=prevNode;
+//         ListNode start=head;
+//         int maxi=Integer.MIN_VALUE;
+//         i=0;
+//         while(i<cnt/2){
+//             maxi=Math.max((start.val+curr.val),maxi);
+//             start=start.next;
+//             curr=curr.next;
+//             i++;
+//         }
+//         return maxi;
+//     }
+// }
+
+class Solution {
+    public int pairSum(ListNode head){
+        if(head == null || head.next == null) {
+            return 0;
+        }
+        int cnt=0;
+        ListNode temp=head;
+        while(temp!=null){
+            temp=temp.next;
+            cnt++;
+        }
+        ListNode prev=null;
+        temp=head;
+        for(int i=0; i<cnt/2; i++){
+            prev=temp;
+            temp=temp.next;
+        }
+        prev.next=null;
+        ListNode curr=temp;
+        while(curr!=null){
+            ListNode nextNode=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=nextNode;
+        }
+        ListNode nextHalf=prev;
+        int maxi=Integer.MIN_VALUE;
+        ListNode first=head;
+        ListNode second=nextHalf;
+        while(first!=null && second!=null){
+            maxi=Math.max(maxi,(first.val+second.val));
+            first=first.next;
+            second=second.next;
+        }
+        return maxi;
+    }
+}

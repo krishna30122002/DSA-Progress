@@ -1,0 +1,24 @@
+class Solution {
+    public int solve(int[] f, int k , int i , int j, int[][] dp){
+       if(i==j || f[j]-f[i]<=k){
+           return 0;
+       }
+       if(dp[i][j]!=-1){
+           return dp[i][j];
+       } 
+       return dp[i][j]=Math.min(f[i] + solve(f,k,i+1,j,dp),f[j]-f[i]-k + solve(f,k,i,j-1,dp));
+    }
+    public int minimumDeletions(String s, int k) {
+        int n = s.length();
+        int[] freq=new int[26];
+        for(int i=0;i< n ;i++){
+            freq[s.charAt(i)-'a']++;
+        }
+        int[][] dp=new int[26][26];
+        for(int[] row:dp){
+            Arrays.fill(row,-1);
+        }
+        Arrays.sort(freq);
+        return solve(freq,k,0,25,dp);
+    }
+}

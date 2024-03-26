@@ -1,0 +1,90 @@
+//DFS
+
+// import java.util.*;
+// public class Solution {
+//     public static void dfs(int node, int[] vis, Stack<Integer> st, List<List<Integer>> adj){
+//         vis[node]=1;
+//         for(int i : adj.get(node)){
+//             if(vis[i]==0){
+//                 dfs(i, vis, st, adj);
+//             }
+//         }
+//         st.push(node);
+//     }
+
+//     public static List<Integer> topologicalSort(int[][] edges, int e, int v) {
+//         // Write your code here!
+//         List<List<Integer>> adj=new ArrayList<>();
+//         for(int i=0; i<v; i++){
+//             adj.add(new ArrayList<>());
+//         }
+//         for(int i=0; i<e; i++){
+//             int x=edges[i][0];
+//             int y=edges[i][1];
+//             adj.get(x).add(y);
+//         }
+
+//         int[] vis=new int[v];
+//         List<Integer> res=new ArrayList<>();
+//         Stack<Integer> st=new Stack<>();
+
+//         for(int i=0; i<v; i++){
+//             if(vis[i]==0){
+//                 dfs(i,vis,st,adj);
+//             }
+//         }
+//         while(!st.isEmpty()){
+//             res.add(st.peek());
+//             st.pop();
+//         }
+//         return res;
+//     }
+
+// }
+
+//Kahn's Algorithm - BFS
+
+import java.util.*;
+public class Solution {
+
+    public static List<Integer> topologicalSort(int[][] edges, int e, int v) {
+        // Write your code here!
+        List<List<Integer>> adj=new ArrayList<>();
+        for(int i=0; i<v; i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0; i<e; i++){
+            int x=edges[i][0];
+            int y=edges[i][1];
+            adj.get(x).add(y);
+        }
+
+        int[] inDegree=new int[v];
+        Queue<Integer> q=new LinkedList<>();
+
+        for(int i=0; i<v; i++){
+            for(int it:adj.get(i)){
+                inDegree[it]++;
+            }
+        }
+        for(int i=0; i<v; i++){
+            if(inDegree[i]==0){
+                q.offer(i);
+            }
+        }
+
+        List<Integer> res=new ArrayList<>();
+        while(!q.isEmpty()){
+            int node=q.poll();
+            res.add(node);
+            for(int it: adj.get(node)){
+                inDegree[it]--;
+                if(inDegree[it]==0){
+                    q.offer(it);
+                }
+            }
+        }
+        return res;
+    }
+
+}

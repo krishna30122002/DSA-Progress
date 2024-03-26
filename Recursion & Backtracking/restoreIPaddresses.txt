@@ -1,0 +1,32 @@
+class Solution {
+    public boolean isValid(String str){
+        if(str.charAt(0)=='0'){
+            return false;
+        }
+        int val=Integer.parseInt(str);
+        if(val<=255){
+            return true;
+        }
+        return false;
+    }
+    public void solve(int idx, String s, int partition, String ans, List<String> list){
+        if(idx==s.length() || partition==4){
+            if(s.length()==idx && partition==4){
+                list.add(ans.substring(0,ans.length()-1));
+            }
+            return;
+        }
+        solve(idx+1, s, partition+1, ans+s.charAt(idx)+".",list);
+        if(s.length()>=(idx+2) && isValid(s.substring(idx,idx+2))){
+            solve(idx+2, s, partition+1, ans+s.substring(idx,idx+2)+".",list);
+        }
+        if(s.length()>=(idx+3) && isValid(s.substring(idx,idx+3))){
+            solve(idx+3, s, partition+1, ans+s.substring(idx,idx+3)+".",list);
+        }
+    }
+    public List<String> restoreIpAddresses(String s) {
+        List<String> list=new ArrayList<>();
+        solve(0,s,0,"",list);
+        return list;
+    }
+}

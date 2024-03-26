@@ -1,0 +1,57 @@
+// Find the Duplicate Number
+
+// class Solution {
+//     public int findDuplicate(int[] nums) {
+//         int n=nums.length;
+//         int num,ans=0,flag=0;
+//         for(int i=0; i<n-1; i++){
+//             num=nums[i];
+//             for(int j=0; j<n; j++){
+//                 if(i!=j && num==nums[j]){
+//                     ans=nums[j];
+//                     flag=1;
+//                     break;
+//                 }
+//             }
+//             if(flag==1){
+//                 break;
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+// class Solution {
+//     public int findDuplicate(int[] nums) {
+//         Arrays.sort(nums);
+//         int n=nums.length;
+//         int num=nums[0];
+//         int ans=0;
+//         for(int i=1; i<n; i++){
+//             if(nums[i]==num){
+//                 ans=nums[i];
+//                 break;
+//             }
+//             num=nums[i];
+//         }
+//         return ans;
+//     }
+// }
+
+//Little bit complicated solution 
+//O(N)->TC & O(1)->SC
+
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+        for(int i=0; i<n; i++)
+        {
+            int idx=Math.abs(nums[i]);
+            if(nums[idx] < 0){
+                return idx;
+            }
+            nums[idx]=-nums[idx];
+        }
+        return n;
+    }
+}
