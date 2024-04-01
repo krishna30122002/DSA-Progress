@@ -1,0 +1,28 @@
+// Count Subarrays Where Max Element Appears at Least K Times
+
+class Solution {
+    public long countSubarrays(int[] nums, int k) {
+        long maxNum = Long.MIN_VALUE;
+        long cnt = 0;
+        long i = 0, j = 0, res = 0;
+        
+        for (int num : nums) {
+            maxNum = Math.max(maxNum, num);
+        }
+        
+        while (j < nums.length || i > j) {
+            if (nums[(int)j] == maxNum) {
+                cnt++;
+            }
+            while (cnt >= k) {
+                if (nums[(int)i] == maxNum) {
+                    cnt--;
+                }
+                i++;
+                res += nums.length - j;
+            }
+            j++;
+        }
+        return res;
+    }
+}
