@@ -1,0 +1,18 @@
+// Number of Students Unable to Eat Lunch
+
+class Solution {
+    public int countStudents(int[] students, int[] sandwiches) {
+        int[] arr=new int[2];
+        Arrays.fill(arr,0);
+        for(int i=0; i<students.length; i++){
+            arr[students[i]]++;
+        }
+        for(int i=0; i<sandwiches.length; i++){
+            if(arr[sandwiches[i]]==0){
+                return sandwiches.length-i;
+            }
+            arr[sandwiches[i]]--;
+        }
+        return 0;
+    }
+}

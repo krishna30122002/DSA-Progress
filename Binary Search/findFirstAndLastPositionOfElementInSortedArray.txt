@@ -1,0 +1,46 @@
+class Solution {
+    public int solve1(int[] nums, int n, int target) {
+        int low=0;
+        int high=n-1;
+        int ans=-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(nums[mid]>=target){
+                high=mid-1;
+                if(nums[mid]==target){
+                    ans=mid;
+                }
+            }else{
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+
+    public int solve2(int[] nums, int n, int target) {
+        int low=0;
+        int high=n-1;
+        int ans=-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(nums[mid]<=target){
+                low=mid+1;
+                if(nums[mid]==target){
+                    ans=mid;
+                }
+            }else{
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+
+    public int[] searchRange(int[] nums, int target) {
+        int n=nums.length;
+        int[] a=new int[2];
+        Arrays.fill(a, -1);
+        a[0] = solve1(nums, n, target);
+        a[1] = solve2(nums, n, target);
+        return a;
+    }
+}

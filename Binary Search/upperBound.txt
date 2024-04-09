@@ -1,12 +1,12 @@
 public class Solution {
-    public static int lowerBound(int []arr, int n, int x) {
-        // Write your code here
+    public static int upperBound(int []arr, int x, int n){
+        // Write your code here.
         int low=0;
         int high=n-1;
         int ans=n;
         while(low<=high){
             int mid=low+(high-low)/2;
-            if(arr[mid]>=x){
+            if(arr[mid]>x){
                 ans=mid;
                 high=mid-1;
             }else{

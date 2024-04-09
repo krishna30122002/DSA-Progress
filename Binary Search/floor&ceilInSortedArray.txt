@@ -1,0 +1,43 @@
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+    public static int solve1(int[] a, int n, int x){
+        int low=0;
+        int high=n-1;
+        int ans=-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(a[mid]<=x){
+                ans=a[mid];
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+    public static int solve2(int[] a, int n, int x){
+        int low=0;
+        int high=n-1;
+        int ans=-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(a[mid]>=x){
+                ans=a[mid];
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+    public static int[] getFloorAndCeil(int[] a, int n, int x) {
+      // Write your code here.
+      int[] arr=new int[2];
+      Arrays.fill(arr, 0);
+      arr[0]=solve1(a,n,x);
+      arr[1]=solve2(a,n,x);
+      return arr;
+    }
+}
