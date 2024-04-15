@@ -1,0 +1,24 @@
+public class Solution {
+    public static int NthRoot(int n, int m) {
+        // Write your code here.
+        int low=0;
+        int high=m;
+        int mid=-1;
+        if(m==0 || m==-1){
+            return m;
+        }
+        while(low<=high){
+            mid=low+(high-low)/2;
+            int x=(int)Math.pow(mid, n);
+            if(x==m){
+                return mid;
+            }
+            if(x>m){
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return -1;
+    }
+}

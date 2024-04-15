@@ -1,0 +1,45 @@
+class Solution {
+    public boolean solve(int[] bloom, int mid, int m, int k){
+        int n=bloom.length;
+        int cnt=0;
+        int bouquet=0;
+        for(int i=0; i<n; i++){
+            if(bloom[i]<=mid){
+                cnt++;
+            }else{
+                bouquet+=cnt/k;
+                cnt=0;
+            }
+        }
+        bouquet+=cnt/k;
+        if(bouquet>=m){
+            return true;
+        }
+        return false;
+    }
+    public int minDays(int[] bloom, int m, int k) {
+        int n=bloom.length;
+        long val = (long) m * k;
+        if(val>(long)n){
+            return -1;
+        }
+        // System.out.println(n);
+        int low=Integer.MAX_VALUE;
+        int high=Integer.MIN_VALUE;
+        for(int i=0; i<n; i++){
+            low=Math.min(low,bloom[i]);
+            high=Math.max(high,bloom[i]);
+        }
+        int ans=0;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(solve(bloom, mid, m, k)){
+                ans=mid;
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+}
