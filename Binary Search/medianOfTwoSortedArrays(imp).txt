@@ -1,0 +1,89 @@
+class Solution {
+    public double findMedianSortedArrays(int[] arr1, int[] arr2) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        int n1 = arr1.length;
+        int n2 = arr2.length;
+        int n = n1 + n2;
+        int[] arr3 = new int[n];
+        int ele1 = -1;
+        int ele2 = -1;
+        
+        int ind2 = n / 2;
+        int ind1 = ind2-1;
+        
+        while (i < n1 && j < n2) {
+            if (arr1[i] < arr2[j]) {
+                if (k == ind1) { ele1 = arr1[i]; }
+                if (k == ind2) { ele2 = arr1[i]; }
+                k++;
+                i++;
+            } else {
+                if (k == ind1) { ele1 = arr2[j]; }
+                if (k == ind2) { ele2 = arr2[j]; }
+                k++;
+                j++;
+            }
+        }
+        
+        while (i < n1) {
+            if (k == ind1) { ele1 = arr1[i]; }
+            if (k == ind2) { ele2 = arr1[i]; }
+            k++;
+            i++;
+        }
+        
+        while (j < n2) {
+            if (k == ind1) { ele1 = arr2[j]; }
+            if (k == ind2) { ele2 = arr2[j]; }
+            k++;
+            j++;
+        }
+        
+        if (n % 2 == 1) {
+            return (double)ele2;
+        } else {
+            return (double) ((double)(ele1 + ele2)) / 2.0;
+        }
+    }
+}
+
+// class Solution {
+//     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+//         int n=nums1.length;
+//         int m=nums2.length;
+//         int x=(n+m);
+//         PriorityQueue<Integer> pq=new PriorityQueue<>();
+//         for(int i:nums1){
+//             pq.add(i);
+//         }
+//         for(int i:nums2){
+//             pq.add(i);
+//         }
+//         boolean flag=false;
+//         if(x%2!=0){
+//             flag=true;
+//         }
+//         if(pq.size()==1){
+//             return pq.poll();
+//         }
+//         int cnt=1;
+//         while(!pq.isEmpty()){
+//             if(cnt==x/2 && flag==true){
+//                 pq.poll();
+//                 int temp=pq.poll();
+//                 return temp;
+//             }else if(cnt==x/2 && flag==false){
+//                 int a=pq.poll();
+//                 int b=pq.poll();
+//                 double temp=(double)(a+b)/2;
+//                 return temp;
+//             }else{
+//                 pq.poll();
+//             }
+//             cnt++;
+//         }
+//         return 0.0;
+//     }
+// }

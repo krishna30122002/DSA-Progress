@@ -1,26 +1,43 @@
 class Solution {
-    public List<List<String>> groupAnagrams(String[] strs) {
-        Map<Map<Character,Integer>, List<String>> bigMap=new HashMap<>();
-        for(int i=0; i<strs.length; i++){
-            Map<Character,Integer> mp=new HashMap<>();
-            String s=strs[i];
-            for(int j=0; j<s.length(); j++){
-                char ch=s.charAt(j);
-                mp.put(ch,mp.getOrDefault(ch,0)+1);
-            }
-            if(!bigMap.containsKey(mp)){
-                List<String> list=new ArrayList<>();
-                list.add(s);
-                bigMap.put(mp,list);
-            }else{
-                List<String> list=bigMap.get(mp);
-                list.add(s);
-            }
+    public boolean isAnagram(String s, String t) {
+        char[] ch1 = s.toCharArray();
+        char[] ch2 = t.toCharArray();
+
+        Arrays.sort(ch1);
+        Arrays.sort(ch2);
+
+        if(Arrays.equals(ch1, ch2)){
+            return true;
         }
-        List<List<String>> result=new ArrayList<>();
-        for(List<String> val: bigMap.values()){
-            result.add(val);
-        }
-        return result;
+        return false;
     }
 }
+
+// class Solution {
+//     public boolean isAnagram(String s, String t) {
+//         int n=s.length();
+//         int m=t.length();
+//         if(n!=m){
+//             return false;
+//         }
+//         HashMap<Character, Integer> map = new HashMap<>();
+//         for(int i=0; i<n; i++){
+//             char ch=s.charAt(i);
+//             map.put(ch, map.getOrDefault(ch, 0)+1);
+//         }
+//         for(int i=0; i<m; i++){
+//             char ch=t.charAt(i);
+//             if(!map.containsKey(ch) || map.get(ch)==0){
+//                 return false; 
+//             }else{
+//                 map.put(ch, map.get(ch)-1);
+//             }
+//         }
+//         for(int cnt:map.values()){
+//             if(cnt != 0){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+// }

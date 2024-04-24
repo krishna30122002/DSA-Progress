@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Solution {
+    public static int kthElement(ArrayList<Integer> array1, ArrayList<Integer> array2, int m, int n, int k) {
+        int p1 = 0, p2 = 0, cnt = 0, ans = 0;
+
+        while (p1 < m && p2 < n) {
+            if (cnt == k) {
+                break;
+            } else if (array1.get(p1) < array2.get(p2)) {
+                ans = array1.get(p1);
+                ++p1;
+            } else {
+                ans = array2.get(p2);
+                ++p2;
+            }
+            ++cnt;
+        }
+        if (cnt != k) {
+            if (p1 != m - 1)
+                ans = array1.get(k - cnt);
+            else
+                ans = array2.get(k - cnt);
+        }
+        return ans;
+
+    }
+}

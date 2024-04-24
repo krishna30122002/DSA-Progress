@@ -1,0 +1,16 @@
+public class Solution {
+    public static Node insertAtTail(Node head, int K) {
+        // Write your code here
+        if(head==null){
+            Node newNode=new Node(K, null, null);
+            return newNode;
+        }
+        Node tail = head;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+        Node newNode=new Node(K, null, tail);
+        tail.next=newNode;
+        return head;
+    }
+}

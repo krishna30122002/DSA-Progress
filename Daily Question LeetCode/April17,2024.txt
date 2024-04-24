@@ -1,0 +1,29 @@
+// Smallest String Starting From Leaf
+
+class Solution {
+    public void solve(TreeNode root, StringBuilder sb, List<String> l){
+        if(root==null){
+            return;
+        }
+        sb.append((char)(root.val+'a'));
+        if(root.left==null && root.right==null){
+            l.add(sb.reverse().toString());
+            sb.reverse();
+        }else{
+            solve(root.left,sb,l);
+            solve(root.right,sb,l);
+        }
+        sb.deleteCharAt(sb.length()-1);
+        return;
+    }
+    public String smallestFromLeaf(TreeNode root) {
+        if(root==null){
+            return "";
+        }
+        List<String> l=new ArrayList<>();
+        StringBuilder sb=new StringBuilder();
+        solve(root,sb,l);
+        Collections.sort(l);
+        return l.get(0);
+    }
+}
