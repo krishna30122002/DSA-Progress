@@ -1,0 +1,39 @@
+import java.util.*;
+public class Solution
+{
+    public static Node sortList(Node head) {
+        // Write your code here
+        if(head==null || head.next==null){
+            return head;
+        }
+        Node zero=new Node(-1);
+        Node one=new Node(-1);
+        Node two=new Node(-1);
+        Node zeroStart=zero;
+        Node oneStart=one;
+        Node twoStart=two;
+        Node curr=head;
+        while(curr!=null){
+            int x=curr.data;
+            if(x==0){
+                zero.next=curr;
+                zero=zero.next;
+            }else if(x==1){
+                one.next=curr;
+                one=one.next;
+            }else{
+                two.next=curr;
+                two=two.next;
+            }
+            curr=curr.next;
+        }
+        if(oneStart!=null){
+            zero.next=oneStart.next;
+        }else{
+            zero.next=twoStart.next;
+        }
+        one.next=twoStart.next;
+        two.next=null;
+        return zeroStart.next;
+    }
+}

@@ -1,0 +1,33 @@
+public class Solution {
+	public static Node reverse(Node head){
+		Node prev=null;
+		Node curr=head;
+		while(curr!=null){
+			Node newNode=curr.next;
+			curr.next=prev;
+			prev=curr;
+			curr=newNode;
+		}
+		return prev;
+	}
+	public static Node addOne(Node head) {
+		// Write your code here.
+		Node rev=reverse(head);
+		int carry=1;
+		Node revTemp=rev;
+		Node prev=null;
+		while(revTemp!=null){
+			int sum=carry;
+			sum+=revTemp.data;
+			revTemp.data=sum%10;
+			carry=sum/10;
+			prev=revTemp;
+			revTemp=revTemp.next;
+		}
+		if(carry!=0){
+			Node newNode=new Node(carry);
+			prev.next=newNode;
+		}
+		return reverse(rev);
+	}
+}

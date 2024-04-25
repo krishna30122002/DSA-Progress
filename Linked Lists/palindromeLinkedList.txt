@@ -1,0 +1,47 @@
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+    int size=0;
+        ListNode s = head;
+        while(s!=null){
+            size++;
+            s=s.next;
+        }
+        if(size==1){
+            return true;
+        }
+        if(size==2){
+            if(head.val==head.next.val){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    
+        ListNode slow=head;
+        ListNode fast=head;
+    
+        while(fast.next!=null && fast.next.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        ListNode prevNode=null;
+        ListNode currNode=slow.next;
+        while(currNode!=null){
+            ListNode nextNode=currNode.next;
+            currNode.next=prevNode;
+            prevNode=currNode;
+            currNode=nextNode;
+        }
+        slow.next=prevNode;
+        ListNode entry = head;
+        ListNode exit = slow.next;
+        while(exit!=null){
+            if(entry.val!=exit.val){
+                return false;
+            }
+            entry=entry.next;
+            exit=exit.next;
+        }
+        return true;
+    }
+}
