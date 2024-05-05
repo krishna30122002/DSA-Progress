@@ -1,0 +1,18 @@
+// Delete Node in a Linked List
+
+class Solution {
+    public void deleteNode(ListNode node) {
+        ListNode prev=node;
+        ListNode temp=node.next;
+        while(temp!=null){
+            prev.val=temp.val;
+            if(temp.next==null){
+                prev.next=null;
+                return;
+            }
+            prev=prev.next;
+            temp=temp.next;
+        }
+        return;
+    }
+}

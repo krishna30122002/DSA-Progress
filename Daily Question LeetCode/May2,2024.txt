@@ -1,0 +1,19 @@
+// Largest Positive Integer That Exists With Its Negative
+
+class Solution {
+    public int findMaxK(int[] nums) {
+        int n = nums.length;
+        HashSet<Integer> set = new HashSet<>();
+        for (int i : nums) {
+            if (i < 0)
+                set.add(i);
+        }
+        int ans=-1;
+        for (int i : nums) {
+            if (i > 0 && set.contains(i*(-1))) {
+                ans = Math.max(ans, i);
+            }
+        }
+        return ans;
+    }
+}
