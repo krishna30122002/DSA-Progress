@@ -1,0 +1,21 @@
+class Solution {
+    public List<Integer> solve(int row){
+        long ans=1;
+        List<Integer> l=new ArrayList<>();
+        l.add((int)ans);
+        for(int i=1; i<row; i++){
+            ans*=(row-i);
+            ans/=i;
+            l.add((int)ans);
+        }
+        return l;
+    }
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> list=new ArrayList<>();
+        for(int i=1; i<=numRows; i++){
+            List<Integer> temp=solve(i);
+            list.add(temp);
+        }
+        return list;
+    }
+}

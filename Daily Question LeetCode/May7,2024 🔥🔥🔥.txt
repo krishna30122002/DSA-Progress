@@ -1,0 +1,33 @@
+// Double a Number Represented as a Linked List
+
+class Solution {
+    public void solve(ListNode head,int carry[]){
+        if(head==null){
+            return;
+        }
+        solve(head.next,carry);
+        int ans=(head.val*2) + carry[0];
+        if(ans>=10){
+            head.val=ans%10;
+            carry[0]=ans/10;
+        }
+        else{
+            head.val=2*head.val+carry[0];
+            carry[0]=0;
+        }
+    }
+    public ListNode doubleIt(ListNode head) {
+       if(head == null){
+           return null;
+       }
+       int carry[]=new int[1];
+       solve(head,carry);
+       if(carry[0] != 0){
+           ListNode node=new ListNode(carry[0]);
+           node.next=head;
+           return node;
+       }
+       else
+       return head;
+    }
+}

@@ -1,0 +1,15 @@
+// Maximize Happiness of Selected Children
+
+class Solution {
+    public long maximumHappinessSum(int[] happiness, int k) {
+        int n = happiness.length;
+        Arrays.sort(happiness);
+        long sum = 0;
+        long cnt = 0;
+        for (int i = n - 1; i >= n - k; i--) {
+            sum += Math.max(happiness[i] - cnt, 0);
+            cnt++;
+        }
+        return sum;
+    }
+}

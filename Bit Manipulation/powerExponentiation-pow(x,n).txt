@@ -1,0 +1,32 @@
+class Solution {
+    // You must implement this function
+    static void sieve() {}
+        
+    static void sieveOfEratosthenes(int[] spf, int N) {
+        for(int i=2; (i*i)<=N; i++){
+            if(spf[i]==i){
+                for(int j=i*i; j<=N; j+=i){
+                    if(spf[j]==j){
+                        spf[j]=i;
+                    }
+                }
+            }
+        }
+        return;
+    }
+
+    static List<Integer> findPrimeFactors(int N) {
+        // code here
+        List<Integer> l=new ArrayList<>();
+        int[] spf=new int[N+1];
+        for(int i=2; i<=N; i++){
+            spf[i]=i;
+        }
+        sieveOfEratosthenes(spf, N);
+        while(N!=1){
+            l.add(spf[N]);
+            N=N/spf[N];
+        }
+        return l;
+    }
+}

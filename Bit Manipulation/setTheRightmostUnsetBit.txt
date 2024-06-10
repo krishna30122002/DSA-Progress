@@ -1,0 +1,7 @@
+class Solution{
+    static int setBit(int N){
+        // code here
+        N=N|(N+1);
+        return N;
+    }
+}

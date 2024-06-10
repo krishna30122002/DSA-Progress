@@ -1,0 +1,39 @@
+class Solution
+{
+    static boolean isPrime(int n) 
+    { 
+        if (n <= 1) 
+            return false; 
+        else if (n == 2) 
+            return true; 
+        else if (n % 2 == 0) 
+            return false; 
+        for (int i = 3; i <= Math.sqrt(n); i += 2) { 
+            if (n % i == 0) 
+                return false; 
+        } 
+        return true; 
+    } 
+    public int[] AllPrimeFactors(int N)
+    {
+        // code here
+        List<Integer> l=new ArrayList<>();
+        if(isPrime(N)){
+            return new int[]{N};
+        }
+        for(int i=2; i<=N; i++){
+            if(N%i==0){
+                l.add(i);
+                while(N%i==0){
+                    N/=i;
+                }
+            }
+        }
+        int[] a=new int[l.size()];
+        int c=0;
+        for(int i=0; i<l.size(); i++){
+            a[c++]=l.get(i);
+        }
+        return a;
+    }
+}
