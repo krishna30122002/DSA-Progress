@@ -1,0 +1,84 @@
+class Edge implements Comparable<Edge> {
+    int src, dest, weight;
+
+    Edge(int src, int dest, int weight) {
+        this.src = src;
+        this.dest = dest;
+        this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Edge compareEdge) {
+        return this.weight - compareEdge.weight;
+    }
+}
+
+class DisjointSet {
+    int[] parent, rank;
+
+    public DisjointSet(int n) {
+        parent = new int[n];
+        rank = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            rank[i] = 0;
+        }
+    }
+
+    public int find(int node) {
+        if (parent[node] != node) {
+            parent[node] = find(parent[node]);
+        }
+        return parent[node];
+    }
+
+    public void union(int u, int v) {
+        int rootU = find(u);
+        int rootV = find(v);
+
+        if (rootU != rootV) {
+            if (rank[rootU] > rank[rootV]) {
+                parent[rootV] = rootU;
+            } else if (rank[rootU] < rank[rootV]) {
+                parent[rootU] = rootV;
+            } else {
+                parent[rootV] = rootU;
+                rank[rootU]++;
+            }
+        }
+    }
+}
+
+class Solution {
+    static int spanningTree(int V, int E, List<List<int[]>> adj) {
+        List<Edge> edges = new ArrayList<>();
+        
+        // Extracting all edges from the adjacency list
+        for (int i = 0; i < V; i++) {
+            for (int[] neighbor : adj.get(i)) {
+                int adjNode = neighbor[0];
+                int wt = neighbor[1];
+                edges.add(new Edge(i, adjNode, wt));
+            }
+        }
+        
+        // Sorting edges by weight
+        Collections.sort(edges);
+
+        DisjointSet ds = new DisjointSet(V);
+        int mstWt = 0;
+
+        for (Edge edge : edges) {
+            int u = edge.src;
+            int v = edge.dest;
+            int wt = edge.weight;
+
+            if (ds.find(u) != ds.find(v)) {
+                mstWt += wt;
+                ds.union(u, v);
+            }
+        }
+
+        return mstWt;
+    }
+}
